@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Refactoring develop</string>
+    <string name="search_hint">New word</string>
+    <string name="delete_description">X</string>
 </resources>

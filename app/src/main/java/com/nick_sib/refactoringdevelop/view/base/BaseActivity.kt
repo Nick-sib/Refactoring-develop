@@ -1,14 +1,11 @@
 package com.nick_sib.refactoringdevelop.view.base
 
 import android.os.Bundle
-import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AppCompatActivity
 import com.nick_sib.refactoringdevelop.model.data.AppState
 import com.nick_sib.refactoringdevelop.presenter.IPresenter
 
-abstract class BaseActivity<T : AppState>(
-        @LayoutRes layoutResID: Int
-): AppCompatActivity(layoutResID), IView<T> {
+abstract class BaseActivity<T : AppState>: AppCompatActivity(), IView<T> {
 
     private lateinit var presenter: IPresenter<T, IView<T>>
 
