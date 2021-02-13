@@ -2,7 +2,6 @@ package com.nick_sib.refactoringdevelop.view
 
 
 import android.os.Bundle
-import com.nick_sib.refactoringdevelop.R
 import com.nick_sib.refactoringdevelop.databinding.ActivityMainBinding
 import com.nick_sib.refactoringdevelop.model.data.AppState
 import com.nick_sib.refactoringdevelop.presenter.IPresenter
@@ -10,7 +9,6 @@ import com.nick_sib.refactoringdevelop.presenter.MainPresenterImpl
 import com.nick_sib.refactoringdevelop.view.base.BaseActivity
 import com.nick_sib.refactoringdevelop.view.base.IView
 import com.nick_sib.refactoringdevelop.view.fragment.SearchDialogFragment
-import java.util.*
 
 class MainActivity : BaseActivity<AppState>() {
 
@@ -40,7 +38,10 @@ class MainActivity : BaseActivity<AppState>() {
                 appState.data?.let { it[0].text }
             }
             is AppState.Error -> TODO()
-            is AppState.Loading -> TODO()
+            is AppState.Loading -> {
+                "LOADING"
+//                TODO()
+            }
         }
         binding.tvInfo.text = data
     }
