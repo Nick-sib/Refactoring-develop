@@ -3,6 +3,6 @@
     <dimen name="margin_medium">15dp</dimen>
     <dimen name="margin_small">10dp</dimen>
     <dimen name="margin_xx_medium">20dp</dimen>
-    <dimen name="text_size_large">21sp</dimen>
+    <dimen name="text_size_large">18sp</dimen>
 
 </resources>

@@ -17,6 +17,8 @@ class MainActivity : BaseActivity<AppState>() {
 
     lateinit var binding: ActivityMainBinding
 
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -24,6 +26,10 @@ class MainActivity : BaseActivity<AppState>() {
 
         binding.searchFab.setOnClickListener {
             val searchDialogFragment = SearchDialogFragment.instance()
+            searchDialogFragment.setOnSearchClickListener {
+                binding.tvInfo.text = it
+            }
+
 //            searchDialogFragment.setOnSearchClickListener(object : SearchDialogFragment.OnSearchClickListener {
 //                override fun onClick(searchWord: String) {
 //                    presenter.getData(searchWord, true)

@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">Refactoring develop</string>
-    <string name="search_hint">New word</string>
-    <string name="delete_description">X</string>
+    <string name="search_hint">Input new word</string>
+    <string name="s_go">GO</string>
+    <string name="error_length">"Please enter at least 2 characters"</string>
 </resources>
