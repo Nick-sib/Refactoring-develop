@@ -4,6 +4,7 @@ package com.nick_sib.refactoringdevelop.view
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import com.google.android.material.snackbar.Snackbar
 import com.nick_sib.refactoringdevelop.R
 import com.nick_sib.refactoringdevelop.databinding.ActivityMainBinding
 import com.nick_sib.refactoringdevelop.model.data.AppState
@@ -21,7 +22,7 @@ class MainActivity : BaseActivity<AppState>() {
         binding.root.findViewById(R.id.v_load_dialog)
     }
     private lateinit var adapter: MainAdapter
-
+    private var errorSnack: Snackbar? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,14 +49,32 @@ class MainActivity : BaseActivity<AppState>() {
         when (appState) {
             is AppState.Success -> {
                 hideLoadingDialog()
+                hideErrorDialog()
                 adapter.data = appState.data ?: emptyList()
             }
-            is AppState.Error -> TODO()
-            is AppState.Loading -> { showLoadingDialog(); "Load" }
+            is AppState.Error -> { showErrorDialog()}
+            is AppState.Loading -> {
+                hideErrorDialog()
+                showLoadingIndocator()
+            }
         }
     }
 
-    private fun showLoadingDialog(){
+    private fun showErrorDialog(){
+        errorSnack = Snackbar.make(binding.root, "Что - пошло не так", Snackbar.LENGTH_LONG)
+            .setAction("Прервать") {
+                hideLoadingDialog()
+
+            }.also {
+                it.show()
+            }
+    }
+
+    private fun hideErrorDialog(){
+        errorSnack?.dismiss()
+    }
+
+    private fun showLoadingIndocator(){
         loadDialog.visibility = View.VISIBLE
         binding.searchFab.visibility = View.GONE
     }
