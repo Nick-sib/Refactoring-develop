@@ -2,6 +2,7 @@ package com.nick_sib.refactoringdevelop.presenter
 
 import com.nick_sib.refactoringdevelop.model.MainInteractorImpl
 import com.nick_sib.refactoringdevelop.model.data.AppState
+import com.nick_sib.refactoringdevelop.model.datasource.DataSourceLocal
 import com.nick_sib.refactoringdevelop.model.datasource.DataSourceRemote
 import com.nick_sib.refactoringdevelop.model.repository.RepositoryImpl
 import com.nick_sib.refactoringdevelop.view.base.IView
@@ -14,7 +15,7 @@ import io.reactivex.rxjava3.schedulers.Schedulers
 class MainPresenterImpl<T : AppState, V : IView<T>>(
     private val interactor: IInteractor<T> = MainInteractorImpl(
         RepositoryImpl(DataSourceRemote()),
-//        RepositoryImpl(DataSourceLocal())
+        RepositoryImpl(DataSourceLocal())
     ),
     private val compositeDisposable: CompositeDisposable = CompositeDisposable(),
     private val schedulerIO: Scheduler = Schedulers.io(),
@@ -44,11 +45,6 @@ class MainPresenterImpl<T : AppState, V : IView<T>>(
                 }
                 .subscribeWith(getObserver())
         )
-
-
-//        val data = AppState.Success(listOf(DataModel(text =  word, meanings = null))) as AppState
-////        val data: AppState = AppState.Loading(progress = 10)
-//        currentView?.renderData(data as T)
     }
 
     private fun getObserver(): DisposableObserver<AppState> =

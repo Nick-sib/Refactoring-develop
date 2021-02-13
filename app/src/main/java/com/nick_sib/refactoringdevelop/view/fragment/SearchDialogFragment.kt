@@ -7,18 +7,18 @@ import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.nick_sib.refactoringdevelop.R
-import com.nick_sib.refactoringdevelop.databinding.SearchDialogFragmentBinding
+import com.nick_sib.refactoringdevelop.databinding.FragmentDialogSearchBinding
 import java.util.*
 
 class SearchDialogFragment : BottomSheetDialogFragment() {
 
     private val minCharCount = 2
 
-    private var binding: SearchDialogFragmentBinding? = null
+    private var binding: FragmentDialogSearchBinding? = null
     private var onSearchClickListener: ((String) -> Unit)? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View =
-        SearchDialogFragmentBinding.inflate(inflater).let {
+        FragmentDialogSearchBinding.inflate(inflater).let {
             binding = it
             it.root
         }

@@ -25,4 +25,5 @@
         <item name="android:hint">@string/search_hint</item>
         <item name="android:layout_marginEnd">@dimen/margin_small</item>
     </style>
+
 </resources>

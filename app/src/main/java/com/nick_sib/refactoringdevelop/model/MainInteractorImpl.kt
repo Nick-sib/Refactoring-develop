@@ -9,18 +9,14 @@ import io.reactivex.rxjava3.core.Observable
 
 class MainInteractorImpl<T : AppState>(
     private val remoteRepository: IRepository<List<DataModel>>,
-//    private val localRepository: IRepository<List<DataModel>>
+    private val localRepository: IRepository<List<DataModel>>
 ) : IInteractor<T> {
 
     override fun getData(word: String, fromRemoteSource: Boolean): Observable<T> =
-        remoteRepository.getData(word).map { AppState.Success(it) as T}
+        if (fromRemoteSource)
+            remoteRepository.getData(word).map { AppState.Success(it) as T}
+        else
+            localRepository.getData(word).map{ AppState.Success(it) as T}
 
 
-
-//    override fun getData(word: String, fromRemoteSource: Boolean): Observable<AppState> =
-//        if (fromRemoteSource) {
-//            remoteRepository.getData(word).map { AppState.Success(it) }
-//        } else {
-//            localRepository.getData(word).map { AppState.Success(it) }
-//        }
 }
