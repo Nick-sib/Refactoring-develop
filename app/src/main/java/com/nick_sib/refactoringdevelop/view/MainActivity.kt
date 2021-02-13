@@ -14,9 +14,7 @@ import java.util.*
 
 class MainActivity : BaseActivity<AppState>() {
 
-
     lateinit var binding: ActivityMainBinding
-
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -27,17 +25,9 @@ class MainActivity : BaseActivity<AppState>() {
         binding.searchFab.setOnClickListener {
             val searchDialogFragment = SearchDialogFragment.instance()
             searchDialogFragment.setOnSearchClickListener {
-                binding.tvInfo.text = it
+                presenter.getData(it, true)
             }
-
-//            searchDialogFragment.setOnSearchClickListener(object : SearchDialogFragment.OnSearchClickListener {
-//                override fun onClick(searchWord: String) {
-//                    presenter.getData(searchWord, true)
-//                }
-//            })
             searchDialogFragment.show(supportFragmentManager, BOTTOM_SHEET_FRAGMENT_DIALOG_TAG)
-//            binding.tvInfo.text = "CLICK"
-
         }
     }
 
@@ -45,7 +35,14 @@ class MainActivity : BaseActivity<AppState>() {
         MainPresenterImpl()
 
     override fun renderData(appState: AppState) {
-
+        val data = when (appState) {
+            is AppState.Success -> {
+                appState.data?.let { it[0].text }
+            }
+            is AppState.Error -> TODO()
+            is AppState.Loading -> TODO()
+        }
+        binding.tvInfo.text = data
     }
 
     companion object {

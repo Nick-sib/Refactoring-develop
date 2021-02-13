@@ -7,7 +7,7 @@ import com.nick_sib.refactoringdevelop.presenter.IPresenter
 
 abstract class BaseActivity<T : AppState>: AppCompatActivity(), IView<T> {
 
-    private lateinit var presenter: IPresenter<T, IView<T>>
+    protected lateinit var presenter: IPresenter<T, IView<T>>
 
     protected abstract fun createPresenter(): IPresenter<T, IView<T>>
 
