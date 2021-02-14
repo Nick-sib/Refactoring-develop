@@ -36,7 +36,7 @@ class MainActivity : BaseActivity<AppState>() {
             }
             searchDialogFragment.show(supportFragmentManager, BOTTOM_SHEET_FRAGMENT_DIALOG_TAG)
         }
-        adapter = MainAdapter(){
+        adapter = MainAdapter {
             Toast.makeText(this, it, Toast.LENGTH_SHORT).show()
         }
         binding.rvSearchResult.adapter = adapter
@@ -61,7 +61,7 @@ class MainActivity : BaseActivity<AppState>() {
     }
 
     private fun showErrorDialog(){
-        errorSnack = Snackbar.make(binding.root, "Что - пошло не так", Snackbar.LENGTH_LONG)
+        errorSnack = Snackbar.make(binding.root, "Что - пошло не так", Snackbar.LENGTH_INDEFINITE)
             .setAction("Прервать") {
                 hideLoadingDialog()
 
