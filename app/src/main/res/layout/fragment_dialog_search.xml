@@ -9,27 +9,23 @@
     android:fitsSystemWindows="true"
     android:layout_marginBottom="@dimen/margin_medium">
 
-    <ImageView
+    <Button
         android:id="@+id/iv_search"
-        android:layout_width="42dp"
-        android:layout_height="42dp"
-        android:contentDescription="@string/delete_description"
-        android:src="@drawable/ic_done"
+        android:layout_width="60dp"
+        android:layout_height="0dp"
+        android:text="@string/s_go"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/search_input_layout"
+        style="@style/BaseTextInputLayout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:hint="@string/search_hint"
-        android:layout_marginEnd="@dimen/margin_small"
-
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toStartOf="@id/iv_search"
         app:layout_constraintBottom_toBottomOf="parent">
-
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/search_edit_text"
             style="@style/BaseEditTextStyle"
