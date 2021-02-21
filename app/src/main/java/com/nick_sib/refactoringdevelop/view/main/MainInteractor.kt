@@ -16,11 +16,8 @@ class MainInteractor @Inject constructor(
     @Named(NAME_LOCAL) val repositoryLocal: IRepository<List<DataModel>>
 ) : IInteractor<AppState> {
 
-    override fun getData(word: String, fromRemoteSource: Boolean): Observable<AppState> {
-        return if (fromRemoteSource) {
-            repositoryRemote
-        } else {
-            repositoryLocal
-        }.getData(word).map { AppState.Success(it) }
-    }
+    override fun getData(word: String, fromRemoteSource: Boolean): Observable<AppState> =
+        (if (fromRemoteSource) { repositoryRemote } else { repositoryLocal })
+            .getData(word).map { AppState.Success(it) }
+
 }

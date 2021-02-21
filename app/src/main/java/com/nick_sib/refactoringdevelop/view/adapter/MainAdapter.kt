@@ -53,8 +53,7 @@ val clickListener: ((String) -> Unit)? = null
             if (layoutPosition != RecyclerView.NO_POSITION) {
                 itemView.findViewById<TextView>(R.id.tv_header).text = data.text ?: ""
                 itemView.findViewById<TextView>(R.id.tv_description).text =
-                    data.meanings?.get(0)?.translation?.text ?: ""
-
+                    data.meanings?.let { it[0].translation?.text ?: ""} ?: ""
                 itemView.setOnClickListener {
                     clickListener?.invoke(data.text ?: "err")
                 }
