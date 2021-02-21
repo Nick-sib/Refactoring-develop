@@ -3,7 +3,7 @@ package com.nick_sib.refactoringdevelop.view
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
-import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.Observer
 import com.nick_sib.refactoringdevelop.R
 import com.nick_sib.refactoringdevelop.databinding.ActivityMainBinding
 import com.nick_sib.refactoringdevelop.model.ThrowableInternet
@@ -14,13 +14,14 @@ import com.nick_sib.refactoringdevelop.view.base.BaseActivity
 import com.nick_sib.refactoringdevelop.view.fragment.SearchDialogFragment
 import com.nick_sib.refactoringdevelop.view.main.MainInteractor
 import com.nick_sib.refactoringdevelop.view.main.MainViewModel
-import dagger.android.AndroidInjection
-import javax.inject.Inject
+//import dagger.android.AndroidInjection
+import org.koin.android.viewmodel.ext.android.viewModel
+//import javax.inject.Inject
 
 class MainActivity : BaseActivity<AppState, MainInteractor>() {
 
-    @Inject
-    internal lateinit var viewModelFactory: ViewModelProvider.Factory
+//    @Inject
+//    internal lateinit var viewModelFactory: ViewModelProvider.Factory
     override lateinit var model: MainViewModel
 
     private lateinit var binding: ActivityMainBinding
@@ -30,7 +31,7 @@ class MainActivity : BaseActivity<AppState, MainInteractor>() {
     private lateinit var adapter: MainAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        AndroidInjection.inject(this)
+//        AndroidInjection.inject(this)
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -38,8 +39,12 @@ class MainActivity : BaseActivity<AppState, MainInteractor>() {
         if (!isNetworkAvailable)
             showNoInternetConnectionDialog()
 
-        model = viewModelFactory.create(MainViewModel::class.java)
-        model.subscribe().observe(this@MainActivity) { renderData(it) }
+        val viewModel: MainViewModel by viewModel()
+        model = viewModel
+
+//        model = viewModelFactory.create(MainViewModel::class.java)
+//        model.subscribe().observe(this@MainActivity) { renderData(it) }
+        model.subscribe().observe(this@MainActivity, Observer<AppState> { renderData(it) })
 
         binding.searchFab.setOnClickListener {
             val searchDialogFragment = SearchDialogFragment.instance()
