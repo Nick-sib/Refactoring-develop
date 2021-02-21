@@ -5,7 +5,6 @@ import com.nick_sib.refactoringdevelop.model.data.DataModel
 import com.nick_sib.refactoringdevelop.model.datasource.BaseInterceptor
 import com.nick_sib.refactoringdevelop.model.datasource.IDataSource
 import io.reactivex.rxjava3.core.Observable
-
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor

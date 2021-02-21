@@ -6,12 +6,11 @@ import com.nick_sib.refactoringdevelop.model.ThrowableInternet
 import com.nick_sib.refactoringdevelop.model.data.AppState
 import com.nick_sib.refactoringdevelop.utils.network.isOnline
 import com.nick_sib.refactoringdevelop.utils.parseSearchResults
-//import javax.inject.Inject
 import com.nick_sib.refactoringdevelop.viewmodel.BaseViewModel
 import io.reactivex.rxjava3.disposables.Disposable
 import io.reactivex.rxjava3.observers.DisposableObserver
 
-//class MainViewModel @Inject constructor(private val interactor: MainInteractor) :
+
 class MainViewModel(private val interactor: MainInteractor) :
     BaseViewModel<AppState>() {
 

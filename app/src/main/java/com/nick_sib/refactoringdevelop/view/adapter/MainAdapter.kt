@@ -9,11 +9,12 @@ import com.nick_sib.refactoringdevelop.R
 import com.nick_sib.refactoringdevelop.model.data.DataModel
 
 class MainAdapter(
-val clickListener: ((String) -> Unit)? = null
+    val clickListener: ((String) -> Unit)? = null
 ): RecyclerView.Adapter<BaseViewHolder>() {
-
-    private val SEARCH_RESUT_IS_EMPTY = 0
-    private val SEARCH_RESUT_SIMPLY = 1
+    companion object {
+        private const val SEARCH_RESUlT_IS_EMPTY = 0
+        private const val SEARCH_RESUlT_SIMPLY = 1
+    }
 
     var data: List<DataModel> = emptyList()
     set(value) {
@@ -26,13 +27,13 @@ val clickListener: ((String) -> Unit)? = null
 
     override fun getItemViewType(position: Int): Int =
         if ((data.size == 1) && (data[0].text == null) && (data[0].meanings.isNullOrEmpty()))
-            SEARCH_RESUT_IS_EMPTY
+            SEARCH_RESUlT_IS_EMPTY
         else
-            SEARCH_RESUT_SIMPLY
+            SEARCH_RESUlT_SIMPLY
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-        return  if (viewType == SEARCH_RESUT_IS_EMPTY) {
+        return  if (viewType == SEARCH_RESUlT_IS_EMPTY) {
             RecyclerEmptySearchHolder(inflater
                 .inflate(R.layout.recyclerview_item_empty_search_result, parent, false))
         } else {
