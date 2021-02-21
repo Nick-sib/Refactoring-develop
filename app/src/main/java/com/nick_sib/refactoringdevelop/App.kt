@@ -18,10 +18,17 @@ class App: Application(), HasActivityInjector {
 
     override fun onCreate() {
         super.onCreate()
+        instance = this
         DaggerAppComponent.builder()
             .application(this)
             .build()
             .inject(this)
+    }
+
+
+    companion object {
+        lateinit var instance: App
+            private set
     }
 
 }

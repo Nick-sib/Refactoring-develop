@@ -1,11 +1,13 @@
 package com.nick_sib.refactoringdevelop.di
 
+import com.nick_sib.refactoringdevelop.App
 import com.nick_sib.refactoringdevelop.model.data.DataModel
 import com.nick_sib.refactoringdevelop.model.datasource.IDataSource
 import com.nick_sib.refactoringdevelop.model.datasource.RoomDataBaseImpl
 import com.nick_sib.refactoringdevelop.model.repository.IRepository
 import com.nick_sib.refactoringdevelop.model.repository.RepositoryImpl
 import com.nick_sib.refactoringdevelop.model.datasource.provider.RetrofitImpl
+import com.nick_sib.refactoringdevelop.utils.network.INetworkStatus
 import dagger.Module
 import dagger.Provides
 import javax.inject.Named

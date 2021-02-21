@@ -14,12 +14,10 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class RetrofitImpl: IDataSource<List<DataModel>> {
 
-    override fun getData(word: String): Observable<List<DataModel>> {
-        val call = getService(BaseInterceptor).search(word)
-        return Observable.fromCallable {
-            call.execute().body()
+    override fun getData(word: String): Observable<List<DataModel>> =
+        Observable.fromCallable {
+            getService(BaseInterceptor).search(word).execute().body()
         }
-    }
 
     private fun getService(interceptor: Interceptor): ApiService =
         createRetrofit(interceptor).create(ApiService::class.java)

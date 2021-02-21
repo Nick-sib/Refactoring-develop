@@ -7,6 +7,7 @@ import com.nick_sib.refactoringdevelop.model.data.DataModel
 import com.nick_sib.refactoringdevelop.model.repository.IRepository
 import com.nick_sib.refactoringdevelop.presenter.IInteractor
 import io.reactivex.rxjava3.core.Observable
+import io.reactivex.rxjava3.core.Single
 
 import javax.inject.Inject
 import javax.inject.Named

@@ -9,5 +9,9 @@ import io.reactivex.rxjava3.core.Observable
 class RoomDataBaseImpl: IDataSource<List<DataModel>> {
 
     override fun getData(word: String): Observable<List<DataModel>> =
-         Observable.error(Throwable("None local data"))
+         Observable.fromSingle {
+             it.onSuccess(emptyList())
+         }
+
+        // }//empty()//error(Throwable("None local data"))
 }
