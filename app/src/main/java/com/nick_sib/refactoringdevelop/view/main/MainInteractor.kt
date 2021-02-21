@@ -19,5 +19,4 @@ class MainInteractor @Inject constructor(
     override fun getData(word: String, fromRemoteSource: Boolean): Observable<AppState> =
         (if (fromRemoteSource) { repositoryRemote } else { repositoryLocal })
             .getData(word).map { AppState.Success(it) }
-
 }

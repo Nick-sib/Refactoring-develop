@@ -24,7 +24,6 @@ class RetrofitImpl: IDataSource<List<DataModel>> {
     private fun getService(interceptor: Interceptor): ApiService =
         createRetrofit(interceptor).create(ApiService::class.java)
 
-
     private fun createRetrofit(interceptor: Interceptor): Retrofit =
         Retrofit.Builder()
             .baseUrl(BASE_URL_LOCATIONS)
@@ -32,7 +31,6 @@ class RetrofitImpl: IDataSource<List<DataModel>> {
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .client(createOkHttpClient(interceptor))
             .build()
-
 
     private fun createOkHttpClient(interceptor: Interceptor): OkHttpClient =
         OkHttpClient
@@ -42,7 +40,6 @@ class RetrofitImpl: IDataSource<List<DataModel>> {
                 this.level = HttpLoggingInterceptor.Level.BODY
             })
             .build()
-
 
     companion object {
         private const val BASE_URL_LOCATIONS = "https://dictionary.skyeng.ru/api/public/v1/"

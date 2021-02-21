@@ -8,6 +8,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.nick_sib.refactoringdevelop.R
 import com.nick_sib.refactoringdevelop.databinding.ActivityMainBinding
 import com.nick_sib.refactoringdevelop.model.data.AppState
+import com.nick_sib.refactoringdevelop.utils.network.isOnline
 import com.nick_sib.refactoringdevelop.view.adapter.MainAdapter
 import com.nick_sib.refactoringdevelop.view.base.BaseActivity
 import com.nick_sib.refactoringdevelop.view.fragment.SearchDialogFragment
@@ -42,7 +43,10 @@ class MainActivity : BaseActivity<AppState, MainInteractor>() {
         binding.searchFab.setOnClickListener {
             val searchDialogFragment = SearchDialogFragment.instance()
             searchDialogFragment.setOnSearchClickListener {
-                model.getData(it, true)
+                isNetworkAvailable = isOnline(applicationContext)
+                model.getData(it, isNetworkAvailable)
+                if (!isNetworkAvailable)
+                    showNoInternetConnectionDialog()
             }
             searchDialogFragment.show(supportFragmentManager, BOTTOM_SHEET_FRAGMENT_DIALOG_TAG)
         }
@@ -59,7 +63,9 @@ class MainActivity : BaseActivity<AppState, MainInteractor>() {
                 hideErrorDialog()
                 adapter.data = dataModel.data ?: emptyList()
             }
-            is AppState.Error -> { showErrorDialog()}
+            is AppState.Error -> {
+                showErrorDialog(dataModel.error.message)
+            }
             is AppState.Loading -> {
                 hideErrorDialog()
                 showLoadingIndocator()
@@ -81,14 +87,16 @@ class MainActivity : BaseActivity<AppState, MainInteractor>() {
         binding.searchFab.visibility = View.GONE
     }
 
-    private fun showErrorDialog(){
-        errorSnack = Snackbar.make(binding.root, "Что - пошло не так", Snackbar.LENGTH_INDEFINITE)
-            .setAction("Прервать") {
+    private fun showErrorDialog(text: String?){
+        errorSnack = Snackbar.make(
+            binding.root,
+            text ?: "Что - пошло не так",
+            Snackbar.LENGTH_INDEFINITE
+        ).setAction("Прервать") {
                 hideLoadingDialog()
-
-            }.also {
-                it.show()
-            }
+        }.also {
+            it.show()
+        }
     }
 
     companion object {

@@ -37,13 +37,12 @@ abstract class BaseActivity<T : AppState, I : IInteractor<T>> : AppCompatActivit
         )
     }
 
-    protected fun showAlertDialog(title: String?, message: String?) {
+    private fun showAlertDialog(title: String?, message: String?) {
         AlertDialogFragment.newInstance(title, message).show(supportFragmentManager, DIALOG_FRAGMENT_TAG)
     }
 
-    private fun isDialogNull(): Boolean {
-        return supportFragmentManager.findFragmentByTag(DIALOG_FRAGMENT_TAG) == null
-    }
+    private fun isDialogNull(): Boolean =
+        supportFragmentManager.findFragmentByTag(DIALOG_FRAGMENT_TAG) == null
 
     abstract fun renderData(dataModel: T)
 
