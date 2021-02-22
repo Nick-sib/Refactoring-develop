@@ -7,7 +7,6 @@ import com.nick_sib.refactoringdevelop.R
 import com.nick_sib.refactoringdevelop.databinding.ActivityMainBinding
 import com.nick_sib.refactoringdevelop.model.ThrowableInternet
 import com.nick_sib.refactoringdevelop.model.data.AppState
-import com.nick_sib.refactoringdevelop.utils.network.isOnline
 import com.nick_sib.refactoringdevelop.view.adapter.MainAdapter
 import com.nick_sib.refactoringdevelop.view.base.BaseActivity
 import com.nick_sib.refactoringdevelop.view.fragment.SearchDialogFragment
@@ -30,21 +29,13 @@ class MainActivity : BaseActivity<AppState, MainInteractor>() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        if (!isNetworkAvailable)
-            showNoInternetConnectionDialog()
-
         model.subscribe().observe(this@MainActivity, { renderData(it) })
+        model.internetState.observe(this, { showInternetState(it) } )
 
         binding.searchFab.setOnClickListener {
             val searchDialogFragment = SearchDialogFragment.instance()
             searchDialogFragment.setOnSearchClickListener {
-                isNetworkAvailable = isOnline(applicationContext)
-                model.getData(it, isNetworkAvailable)
-                if (!isNetworkAvailable)
-                    showErrorDialog(
-                        binding.root,
-                        R.string.dialog_message_device_is_offline,
-                        R.string.dialog_button_cancel)
+                model.getData(it)
             }
             searchDialogFragment.show(supportFragmentManager, BOTTOM_SHEET_FRAGMENT_DIALOG_TAG)
         }
@@ -73,6 +64,14 @@ class MainActivity : BaseActivity<AppState, MainInteractor>() {
                 showLoadingIndocator()
             }
         }
+    }
+
+    private fun showInternetState(state: Boolean){
+        if (state) hideErrorDialog() else
+            showErrorDialog(
+                binding.root,
+                R.string.dialog_message_device_is_offline)
+//        binding.searchFab.isEnabled = state
     }
 
     override fun hideLoadingDialog(){

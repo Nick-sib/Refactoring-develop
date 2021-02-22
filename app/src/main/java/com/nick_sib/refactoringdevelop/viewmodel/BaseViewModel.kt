@@ -4,10 +4,15 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.nick_sib.refactoringdevelop.model.data.AppState
 import kotlinx.coroutines.*
+import kotlin.coroutines.CoroutineContext
 
 abstract class BaseViewModel<T : AppState>(
-    protected open val _mutableLiveData: MutableLiveData<T> = MutableLiveData()
-) : ViewModel() {
+    protected val _searchResult: MutableLiveData<T> = MutableLiveData(),
+) : ViewModel(), CoroutineScope {
+
+    override val coroutineContext: CoroutineContext by lazy {
+        Dispatchers.Default + Job()
+    }
 
     protected val viewModelCoroutineScope = CoroutineScope(
         Dispatchers.Main
@@ -25,7 +30,7 @@ abstract class BaseViewModel<T : AppState>(
         viewModelCoroutineScope.coroutineContext.cancelChildren()
     }
 
-    abstract fun getData(word: String, isOnline: Boolean)
+    abstract fun getData(word: String)
 
     abstract fun handleError(error: Throwable)
 
