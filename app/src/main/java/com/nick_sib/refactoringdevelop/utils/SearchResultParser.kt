@@ -32,15 +32,3 @@ private fun parseResult(dataModel: DataModel, newDataModels: ArrayList<DataModel
         }
     }
 }
-
-//fun convertMeaningsToString(meanings: List<Meanings>): String {
-//    var meaningsSeparatedByComma = String()
-//    for ((index, meaning) in meanings.withIndex()) {
-//        meaningsSeparatedByComma += if (index + 1 != meanings.size) {
-//            String.format("%s%s", meaning.translation?.text, ", ")
-//        } else {
-//            meaning.translation?.text
-//        }
-//    }
-//    return meaningsSeparatedByComma
-//}

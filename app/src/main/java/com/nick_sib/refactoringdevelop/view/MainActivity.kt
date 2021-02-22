@@ -17,7 +17,7 @@ import org.koin.android.viewmodel.ext.android.viewModel
 
 class MainActivity : BaseActivity<AppState, MainInteractor>() {
 
-    override lateinit var model: MainViewModel
+    override val model: MainViewModel by viewModel()
 
     private lateinit var binding: ActivityMainBinding
     private val loadDialog: View by lazy {
@@ -32,9 +32,6 @@ class MainActivity : BaseActivity<AppState, MainInteractor>() {
 
         if (!isNetworkAvailable)
             showNoInternetConnectionDialog()
-
-        val viewModel: MainViewModel by viewModel()
-        model = viewModel
 
         model.subscribe().observe(this@MainActivity, { renderData(it) })
 

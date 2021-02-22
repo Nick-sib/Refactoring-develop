@@ -1,51 +1,38 @@
 package com.nick_sib.refactoringdevelop.view.main
 
 import androidx.lifecycle.LiveData
-import com.nick_sib.refactoringdevelop.App
-import com.nick_sib.refactoringdevelop.model.ThrowableInternet
 import com.nick_sib.refactoringdevelop.model.data.AppState
-import com.nick_sib.refactoringdevelop.utils.network.isOnline
 import com.nick_sib.refactoringdevelop.utils.parseSearchResults
 import com.nick_sib.refactoringdevelop.viewmodel.BaseViewModel
-import io.reactivex.rxjava3.disposables.Disposable
-import io.reactivex.rxjava3.observers.DisposableObserver
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 
 class MainViewModel(private val interactor: MainInteractor) :
     BaseViewModel<AppState>() {
 
-    private var appState: AppState? = null
+    private val liveDataForViewToObserve: LiveData<AppState> = _mutableLiveData
 
-    fun subscribe(): LiveData<AppState> {
-        return liveDataForViewToObserve
-    }
+    fun subscribe(): LiveData<AppState> =
+        liveDataForViewToObserve
 
     override fun getData(word: String, isOnline: Boolean) {
-        compositeDisposable.add(
-            interactor.getData(word, isOnline)
-                .subscribeOn(schedulerProvider.io())
-                .observeOn(schedulerProvider.ui())
-                .doOnSubscribe(doOnSubscribe())
-                .subscribeWith(getObserver())
-        )
+        _mutableLiveData.value = AppState.Loading(null)
+        cancelJob()
+        viewModelCoroutineScope.launch { startInteractor(word, isOnline) }
     }
 
-    private fun doOnSubscribe(): (Disposable) -> Unit =
-        { liveDataForViewToObserve.value = AppState.Loading(null) }
+    private suspend fun startInteractor(word: String, isOnline: Boolean) = withContext(Dispatchers.IO) {
+        _mutableLiveData.postValue(parseSearchResults(interactor.getData(word, isOnline)))
+    }
 
-    private fun getObserver(): DisposableObserver<AppState> {
-        return object : DisposableObserver<AppState>() {
-            override fun onNext(state: AppState) {
-                appState = parseSearchResults(state)
-                liveDataForViewToObserve.value = appState
-            }
-            override fun onError(e: Throwable) {
-                liveDataForViewToObserve.value = AppState.Error(e)
-            }
-            override fun onComplete() {
-                if (!isOnline(App.instance))
-                    liveDataForViewToObserve.value = AppState.Error(ThrowableInternet())
-            }
-        }
+    override fun handleError(error: Throwable) {
+        _mutableLiveData.postValue(AppState.Error(error))
+    }
+
+    override fun onCleared() {
+        _mutableLiveData.value = AppState.Success(null)
+        super.onCleared()
     }
 }

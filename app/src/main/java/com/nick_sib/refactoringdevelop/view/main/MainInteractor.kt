@@ -4,14 +4,14 @@ import com.nick_sib.refactoringdevelop.model.data.AppState
 import com.nick_sib.refactoringdevelop.model.data.DataModel
 import com.nick_sib.refactoringdevelop.model.repository.IRepository
 import com.nick_sib.refactoringdevelop.presenter.IInteractor
-import io.reactivex.rxjava3.core.Observable
 
 class MainInteractor(
     private val repositoryRemote: IRepository<List<DataModel>>,
     private val repositoryLocal: IRepository<List<DataModel>>
 ) : IInteractor<AppState> {
 
-    override fun getData(word: String, fromRemoteSource: Boolean): Observable<AppState> =
-        (if (fromRemoteSource) { repositoryRemote } else { repositoryLocal })
-            .getData(word).map { AppState.Success(it) }
+    override suspend fun getData(word: String, fromRemoteSource: Boolean): AppState =
+        AppState
+            .Success((if (fromRemoteSource) repositoryRemote else repositoryLocal)
+            .getData(word))
 }
