@@ -1,8 +1,8 @@
-package com.nick_sib.refactoringdevelop.view
+package com.nick_sib.refactoringdevelop.view.activitys
 
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
+import androidx.recyclerview.widget.DividerItemDecoration
 import com.nick_sib.refactoringdevelop.R
 import com.nick_sib.refactoringdevelop.databinding.ActivityMainBinding
 import com.nick_sib.refactoringdevelop.model.ThrowableInternet
@@ -24,6 +24,7 @@ class MainActivity : BaseActivity<AppState, MainInteractor>() {
     }
     private lateinit var adapter: MainAdapter
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -39,9 +40,14 @@ class MainActivity : BaseActivity<AppState, MainInteractor>() {
             }
             searchDialogFragment.show(supportFragmentManager, BOTTOM_SHEET_FRAGMENT_DIALOG_TAG)
         }
-        adapter = MainAdapter {
-            Toast.makeText(this, it, Toast.LENGTH_SHORT).show()
+
+        adapter = MainAdapter { data ->
+            startActivity(DescriptionActivity.getIntent(this@MainActivity, data))
         }
+
+        val itemDecorator = DividerItemDecoration(this, DividerItemDecoration.VERTICAL)
+        binding.rvSearchResult.addItemDecoration(itemDecorator)
+
         binding.rvSearchResult.adapter = adapter
     }
 
@@ -70,8 +76,8 @@ class MainActivity : BaseActivity<AppState, MainInteractor>() {
         if (state) hideErrorDialog() else
             showErrorDialog(
                 binding.root,
-                R.string.dialog_message_device_is_offline)
-//        binding.searchFab.isEnabled = state
+                R.string.dialog_message_device_is_offline
+            )
     }
 
     override fun hideLoadingDialog(){

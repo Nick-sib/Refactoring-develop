@@ -18,13 +18,15 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ProgressBar
-        android:id="@+id/progress_bar_round"
+    <ImageView
         android:layout_width="100dp"
         android:layout_height="100dp"
+        android:src="@drawable/loading_animation"
+        android:scaleType="centerCrop"
         app:layout_constraintEnd_toEndOf="@id/v_circle"
         app:layout_constraintStart_toStartOf="@id/v_circle"
         app:layout_constraintTop_toTopOf="@id/v_circle"
         app:layout_constraintBottom_toBottomOf="@id/v_circle"/>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

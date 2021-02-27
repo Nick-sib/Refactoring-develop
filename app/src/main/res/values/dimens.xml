@@ -4,5 +4,5 @@
     <dimen name="margin_small">10dp</dimen>
     <dimen name="text_size_large">18sp</dimen>
 
-    <dimen name="hairline">1px</dimen>
+    <dimen name="margin_xx_small">5dp</dimen>
 </resources>
