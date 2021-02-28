@@ -22,6 +22,7 @@
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:src="@drawable/loading_animation"
+        android:padding="5dp"
         android:scaleType="centerCrop"
         app:layout_constraintEnd_toEndOf="@id/v_circle"
         app:layout_constraintStart_toStartOf="@id/v_circle"

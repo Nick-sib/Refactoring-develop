@@ -30,7 +30,7 @@
             style="@style/TextAppearance.MaterialComponents.Body2"
             android:layout_marginStart="@dimen/margin_medium"
             android:layout_height="wrap_content"
-            android:text="@{property.getMeanings}"
+            android:text="@{property.getMeaningsAll}"
             tools:text="Description: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua." />
 
     </androidx.appcompat.widget.LinearLayoutCompat>

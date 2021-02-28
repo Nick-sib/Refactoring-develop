@@ -1,10 +1,18 @@
 package com.nick_sib.refactoringdevelop.model.data
 
 import android.os.Parcelable
-import kotlinx.android.parcel.Parcelize
+
+import kotlinx.parcelize.IgnoredOnParcel
+import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class Meanings (
     val translation: Translation?,
     val imageUrl: String?
-): Parcelable
+): Parcelable {
+
+    @IgnoredOnParcel
+    val text: String
+        get() = translation?.text ?: ""
+
+}

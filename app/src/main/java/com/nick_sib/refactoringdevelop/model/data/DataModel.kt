@@ -1,29 +1,22 @@
 package com.nick_sib.refactoringdevelop.model.data
 
 import android.os.Parcelable
+import kotlinx.parcelize.IgnoredOnParcel
 import kotlinx.parcelize.Parcelize
-
 
 @Parcelize
 data class DataModel(
     val text: String?,
     val meanings: List<Meanings>?
 ): Parcelable {
-    val getMeanings: String
-        get() =
-            if (meanings.isNullOrEmpty()) defValue else meanings[0].translation?.text ?: defValue
+    @IgnoredOnParcel
     val getMeaningsAll: String
         get() {
-            var meaningsSeparatedByComma = String()
-            meanings?.forEachIndexed { i, it ->
-                meaningsSeparatedByComma +=
-                    if (i != meanings.size) "${it.translation?.text}, " else it.translation?.text
-            }
-            return meaningsSeparatedByComma
+            val result = meanings?.map{ s -> s.translation?.text }?.toString() ?: defValue
+            return result.substring(1 until result.length-1)
         }
-    val imageUrl: String?
-        get() = if (meanings.isNullOrEmpty()) null else meanings[0].imageUrl
-
+    @IgnoredOnParcel
+    val visible: Boolean = !meanings.isNullOrEmpty()
 }
 
-private const val defValue = ""
+private const val defValue = "[NONE]"

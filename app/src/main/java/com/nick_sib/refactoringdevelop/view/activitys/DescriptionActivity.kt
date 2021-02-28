@@ -6,6 +6,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.nick_sib.refactoringdevelop.databinding.ActivityDescriptionBinding
 import com.nick_sib.refactoringdevelop.model.data.DataModel
+import com.nick_sib.refactoringdevelop.view.adapter.MeaningsViewPagerAdapter
 
 
 //TODO: Refactor to Fragment
@@ -23,6 +24,8 @@ class DescriptionActivity: AppCompatActivity() {
         val data = intent.extras?.getParcelable(DATA_EXTRA) ?: DataModel(null, null)
         binding.property = data
         binding.executePendingBindings()
+        binding.vpTranslate.adapter = MeaningsViewPagerAdapter(data.meanings ?: emptyList(),supportFragmentManager)
+
     }
 
     companion object {
