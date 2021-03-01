@@ -10,6 +10,5 @@ class RepositoryImpl(
 ) : IRepository<List<DataModel>> {
 
     override fun getData(word: String): Observable<List<DataModel>> =
-         dataSource.getData(word)
-
+        dataSource.getData(word)
 }

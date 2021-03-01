@@ -5,4 +5,14 @@
     <string name="error_length">"Please enter at least 2 characters"</string>
     <string name="fab_description">Search button</string>
     <string name="empty_search_result">Sorry, seems nothing has been found</string>
+
+    <string name="dialog_button_cancel">Cancel</string>
+    <string name="dialog_title_stub">Undefined error</string>
+    <string name="dialog_tittle_sorry">Sorry</string>
+    <string name="empty_server_response_on_success">Couldn\'t find any definitions</string>
+
+    <string name="dialog_title_device_is_offline">No internet connection</string>
+    <string name="dialog_message_device_is_offline">You can not use app without internet connection. Please, check
+        internet connection.
+    </string>
 </resources>

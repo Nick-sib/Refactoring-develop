@@ -27,7 +27,6 @@ object BaseInterceptor: Interceptor {
         return statusCode
     }
 
-
     enum class ServerResponseStatusCode {
         INFO,
         SUCCESS,
@@ -36,5 +35,4 @@ object BaseInterceptor: Interceptor {
         SERVER_ERROR,
         UNDEFINED_ERROR
     }
-
 }

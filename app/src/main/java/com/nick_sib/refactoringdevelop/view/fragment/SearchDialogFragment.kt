@@ -17,23 +17,21 @@ class SearchDialogFragment : BottomSheetDialogFragment() {
     private var binding: FragmentDialogSearchBinding? = null
     private var onSearchClickListener: ((String) -> Unit)? = null
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View =
-        FragmentDialogSearchBinding.inflate(inflater).let {
-            binding = it
-            it.root
-        }
-
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View = FragmentDialogSearchBinding.inflate(inflater).let {
+        binding = it
+        it.root
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding?.apply {
-            ivSearch.setOnClickListener {
-                doSearch()
-            }
+            ivSearch.setOnClickListener { doSearch() }
             searchEditText.setOnEditorActionListener { _, actionId, _ ->
-                if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                    doSearch()
-                }
+                if (actionId == EditorInfo.IME_ACTION_SEARCH) { doSearch() }
                 true
             }
         }

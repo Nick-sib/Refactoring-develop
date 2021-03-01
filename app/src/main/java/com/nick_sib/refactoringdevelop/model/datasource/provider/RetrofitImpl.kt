@@ -14,16 +14,13 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class RetrofitImpl: IDataSource<List<DataModel>> {
 
-    override fun getData(word: String): Observable<List<DataModel>> {
-        val call = getService(BaseInterceptor).search(word)
-        return Observable.fromCallable {
-            call.execute().body()
+    override fun getData(word: String): Observable<List<DataModel>> =
+        Observable.fromCallable {
+            getService(BaseInterceptor).search(word).execute().body()
         }
-    }
 
     private fun getService(interceptor: Interceptor): ApiService =
         createRetrofit(interceptor).create(ApiService::class.java)
-
 
     private fun createRetrofit(interceptor: Interceptor): Retrofit =
         Retrofit.Builder()
@@ -33,7 +30,6 @@ class RetrofitImpl: IDataSource<List<DataModel>> {
             .client(createOkHttpClient(interceptor))
             .build()
 
-
     private fun createOkHttpClient(interceptor: Interceptor): OkHttpClient =
         OkHttpClient
             .Builder()
@@ -42,7 +38,6 @@ class RetrofitImpl: IDataSource<List<DataModel>> {
                 this.level = HttpLoggingInterceptor.Level.BODY
             })
             .build()
-
 
     companion object {
         private const val BASE_URL_LOCATIONS = "https://dictionary.skyeng.ru/api/public/v1/"
