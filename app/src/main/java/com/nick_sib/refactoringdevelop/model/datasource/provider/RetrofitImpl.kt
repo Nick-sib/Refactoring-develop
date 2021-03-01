@@ -10,7 +10,7 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-class RetrofitImpl: IDataSource<List<DataModel>> {
+class RetrofitImpl: IDataSource<List<DataModel>, String> {
 
     override suspend fun getData(word: String): List<DataModel> =
         getService(BaseInterceptor).searchAsync(word).await()
@@ -37,6 +37,10 @@ class RetrofitImpl: IDataSource<List<DataModel>> {
 
     companion object {
         private const val BASE_URL_LOCATIONS = "https://dictionary.skyeng.ru/api/public/v1/"
+    }
+
+    override suspend fun saveData(data: List<DataModel>): Boolean {
+        TODO("Not yet implemented")
     }
 
 

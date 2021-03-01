@@ -2,11 +2,10 @@ package com.nick_sib.refactoringdevelop.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.nick_sib.refactoringdevelop.model.data.AppState
 import kotlinx.coroutines.*
 import kotlin.coroutines.CoroutineContext
 
-abstract class BaseViewModel<T : AppState>(
+abstract class BaseViewModel<T>(
     protected val _searchResult: MutableLiveData<T> = MutableLiveData(),
 ) : ViewModel(), CoroutineScope {
 

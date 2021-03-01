@@ -14,7 +14,16 @@ interface DataModelDao {
     @Delete
     fun delete(data: RoomDataModel)
 
+    @Query("SELECT id from RoomDataModel WHERE text= :text LIMIT 1")
+    fun getItemById(text: String?): Long?
+
     @Query("SELECT * FROM RoomDataModel")
     fun getAll(): List<RoomDataModel>
+
+    @Query("SELECT * FROM RoomDataModel WHERE text LIKE :word")
+    fun findByWord(word: String): List<RoomDataModel>
+
+    fun tryInsert(text: String?): Long =
+        getItemById(text) ?: insert(RoomDataModel(text = text))
 
 }

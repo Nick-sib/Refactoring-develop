@@ -8,6 +8,9 @@
         <variable
             name="property"
             type="com.nick_sib.refactoringdevelop.model.data.DataModel" />
+        <variable
+            name="handler"
+            type="com.nick_sib.refactoringdevelop.view.activitys.DescriptionActivity" />
 
     </data>
 
@@ -55,6 +58,20 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/description_textview"
                 android:visibility="@{property.visible ? View.VISIBLE : View.GONE }"/>
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/favorite_fab"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:theme="@style/fabtheme"
+                android:tintMode="multiply"
+                android:src="@{property.isFavorite ? @drawable/ic_un_favorite : @drawable/ic_favorite}"
+                tools:src="drawable/ic_un_favorite"
+                android:layout_margin="@dimen/margin_medium"
+                android:contentDescription="@string/fab_favorite"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:onClick="@{() -> handler.doFavorite()}"/>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 </layout>

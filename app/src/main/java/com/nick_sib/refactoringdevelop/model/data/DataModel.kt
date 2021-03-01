@@ -9,6 +9,8 @@ data class DataModel(
     val text: String?,
     val meanings: List<Meanings>?
 ): Parcelable {
+    var isFavorite: Boolean = false
+
     @IgnoredOnParcel
     val getMeaningsAll: String
         get() {

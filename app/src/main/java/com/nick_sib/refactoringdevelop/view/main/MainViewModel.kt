@@ -3,7 +3,8 @@ package com.nick_sib.refactoringdevelop.view.main
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.nick_sib.refactoringdevelop.App
-import com.nick_sib.refactoringdevelop.model.data.AppState
+import com.nick_sib.refactoringdevelop.model.data.AppStateList
+import com.nick_sib.refactoringdevelop.model.data.DataModel
 import com.nick_sib.refactoringdevelop.utils.network.isOnlineFlow
 import com.nick_sib.refactoringdevelop.utils.parseSearchResults
 import com.nick_sib.refactoringdevelop.viewmodel.BaseViewModel
@@ -15,8 +16,8 @@ import kotlinx.coroutines.withContext
 import kotlin.coroutines.CoroutineContext
 
 class MainViewModel(
-    private val interactor: MainInteractor,
-) : BaseViewModel<AppState>() {
+    private val interactor: MainInteractor<List<DataModel>, String>,
+) : BaseViewModel<AppStateList>() {
 
     override val coroutineContext: CoroutineContext by lazy {
         Dispatchers.Main + Job()
@@ -24,13 +25,13 @@ class MainViewModel(
 
     private val networkChanel = isOnlineFlow(App.instance)
 
-    private val searchResult: LiveData<AppState> = _searchResult
+    private val searchResult: LiveData<AppStateList> = _searchResult
 
     private val _internetState: MutableLiveData<Boolean> = MutableLiveData()
     val internetState: LiveData<Boolean>
         get() =_internetState
 
-    fun subscribe(): LiveData<AppState> = searchResult
+    fun subscribe(): LiveData<AppStateList> = searchResult
 
 
     init {
@@ -42,7 +43,7 @@ class MainViewModel(
     }
 
     override fun getData(word: String) {
-        _searchResult.value = AppState.Loading(null)
+        _searchResult.value = AppStateList.Loading(null)
         cancelJob()
         viewModelCoroutineScope.launch {
             startInteractor(word, _internetState.value ?: false)
@@ -50,11 +51,11 @@ class MainViewModel(
     }
 
     private suspend fun startInteractor(word: String, isOnline: Boolean) = withContext(Dispatchers.IO) {
-        _searchResult.postValue(parseSearchResults(interactor.getData(word, isOnline)))
+        _searchResult.postValue(parseSearchResults(AppStateList.Success(interactor.getData(word, isOnline))))
     }
 
     override fun handleError(error: Throwable) {
-        _searchResult.postValue(AppState.Error(error))
+        _searchResult.postValue(AppStateList.Error(error))
     }
 
     override fun onCleared() {
