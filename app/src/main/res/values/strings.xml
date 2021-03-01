@@ -4,6 +4,7 @@
     <string name="s_go">GO</string>
     <string name="error_length">"Please enter at least 2 characters"</string>
     <string name="fab_description">Search button</string>
+    <string name="fab_favorite">is favorite</string>
     <string name="empty_search_result">Sorry, seems nothing has been found</string>
 
     <string name="dialog_button_cancel">Cancel</string>
@@ -15,4 +16,9 @@
     <string name="dialog_message_device_is_offline">You can not use app without internet connection. Please, check
         internet connection.
     </string>
+
+    <string name="def_image_description">image as is</string>
+
+    <string name="toast_is_favorite">%s is favorite</string>
+    <string name="toast_is_not_favorite">%s is not favorite</string>
 </resources>

@@ -1,51 +1,66 @@
 package com.nick_sib.refactoringdevelop.view.main
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import com.nick_sib.refactoringdevelop.App
-import com.nick_sib.refactoringdevelop.model.ThrowableInternet
-import com.nick_sib.refactoringdevelop.model.data.AppState
-import com.nick_sib.refactoringdevelop.utils.network.isOnline
+import com.nick_sib.refactoringdevelop.model.data.AppStateList
+import com.nick_sib.refactoringdevelop.model.data.DataModel
+import com.nick_sib.refactoringdevelop.utils.network.isOnlineFlow
 import com.nick_sib.refactoringdevelop.utils.parseSearchResults
-import javax.inject.Inject
 import com.nick_sib.refactoringdevelop.viewmodel.BaseViewModel
-import io.reactivex.rxjava3.disposables.Disposable
-import io.reactivex.rxjava3.observers.DisposableObserver
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.channels.consumeEach
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import kotlin.coroutines.CoroutineContext
 
-class MainViewModel @Inject constructor(private val interactor: MainInteractor) :
-    BaseViewModel<AppState>() {
+class MainViewModel(
+    private val interactor: MainInteractor<List<DataModel>, String>,
+) : BaseViewModel<AppStateList>() {
 
-    private var appState: AppState? = null
-
-    fun subscribe(): LiveData<AppState> {
-        return liveDataForViewToObserve
+    override val coroutineContext: CoroutineContext by lazy {
+        Dispatchers.Main + Job()
     }
 
-    override fun getData(word: String, isOnline: Boolean) {
-        compositeDisposable.add(
-            interactor.getData(word, isOnline)
-                .subscribeOn(schedulerProvider.io())
-                .observeOn(schedulerProvider.ui())
-                .doOnSubscribe(doOnSubscribe())
-                .subscribeWith(getObserver())
-        )
-    }
+    private val networkChanel = isOnlineFlow(App.instance)
 
-    private fun doOnSubscribe(): (Disposable) -> Unit =
-        { liveDataForViewToObserve.value = AppState.Loading(null) }
+    private val searchResult: LiveData<AppStateList> = _searchResult
 
-    private fun getObserver(): DisposableObserver<AppState> {
-        return object : DisposableObserver<AppState>() {
-            override fun onNext(state: AppState) {
-                appState = parseSearchResults(state)
-                liveDataForViewToObserve.value = appState
-            }
-            override fun onError(e: Throwable) {
-                liveDataForViewToObserve.value = AppState.Error(e)
-            }
-            override fun onComplete() {
-                if (!isOnline(App.instance))
-                    liveDataForViewToObserve.value = AppState.Error(ThrowableInternet())
+    private val _internetState: MutableLiveData<Boolean> = MutableLiveData()
+    val internetState: LiveData<Boolean>
+        get() =_internetState
+
+    fun subscribe(): LiveData<AppStateList> = searchResult
+
+
+    init {
+        launch {
+            networkChanel.consumeEach {
+                _internetState.value = it
             }
         }
+    }
+
+    override fun getData(word: String) {
+        _searchResult.value = AppStateList.Loading(null)
+        cancelJob()
+        viewModelCoroutineScope.launch {
+            startInteractor(word, _internetState.value ?: false)
+        }
+    }
+
+    private suspend fun startInteractor(word: String, isOnline: Boolean) = withContext(Dispatchers.IO) {
+        _searchResult.postValue(parseSearchResults(AppStateList.Success(interactor.getData(word, isOnline))))
+    }
+
+    override fun handleError(error: Throwable) {
+        _searchResult.postValue(AppStateList.Error(error))
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+        cancelJob()
+        networkChanel.cancel()
     }
 }

@@ -3,41 +3,42 @@ package com.nick_sib.refactoringdevelop.view.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.nick_sib.refactoringdevelop.R
+import com.nick_sib.refactoringdevelop.databinding.RecyclerviewItemSearchResultBinding
 import com.nick_sib.refactoringdevelop.model.data.DataModel
 
 class MainAdapter(
-val clickListener: ((String) -> Unit)? = null
+    val clickListener: ((DataModel) -> Unit)? = null
 ): RecyclerView.Adapter<BaseViewHolder>() {
-
-    private val SEARCH_RESUT_IS_EMPTY = 0
-    private val SEARCH_RESUT_SIMPLY = 1
+    companion object {
+        private const val SEARCH_RESUlT_IS_EMPTY = 0
+        private const val SEARCH_RESUlT_SIMPLY = 1
+    }
 
     var data: List<DataModel> = emptyList()
-    set(value) {
-        field = if (value.isEmpty())
-            listOf(DataModel(null, null))
-        else
-            value
-        notifyDataSetChanged()
-    }
+        set(value) {
+            field = if (value.isEmpty())
+                listOf(DataModel(null, null))
+            else
+                value
+            notifyDataSetChanged()
+        }
 
     override fun getItemViewType(position: Int): Int =
         if ((data.size == 1) && (data[0].text == null) && (data[0].meanings.isNullOrEmpty()))
-            SEARCH_RESUT_IS_EMPTY
+            SEARCH_RESUlT_IS_EMPTY
         else
-            SEARCH_RESUT_SIMPLY
+            SEARCH_RESUlT_SIMPLY
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-        return  if (viewType == SEARCH_RESUT_IS_EMPTY) {
+        return  if (viewType == SEARCH_RESUlT_IS_EMPTY) {
             RecyclerEmptySearchHolder(inflater
                 .inflate(R.layout.recyclerview_item_empty_search_result, parent, false))
         } else {
-            RecyclerItemViewHolder(inflater
-                .inflate(R.layout.recyclerview_item_search_result, parent, false))
+            RecyclerItemViewHolder(RecyclerviewItemSearchResultBinding.inflate(
+                LayoutInflater.from(parent.context)))
         }
     }
 
@@ -45,19 +46,18 @@ val clickListener: ((String) -> Unit)? = null
         holder.bind(data[position])
     }
 
-    override fun getItemCount(): Int =
-        data.size
+    override fun getItemCount(): Int = data.size
 
-    inner class RecyclerItemViewHolder(view: View): BaseViewHolder(view) {
+    inner class RecyclerItemViewHolder(
+        private var binding: RecyclerviewItemSearchResultBinding
+    ): BaseViewHolder(binding.root) {
         override fun bind(data: DataModel) {
-            if (layoutPosition != RecyclerView.NO_POSITION) {
-                itemView.findViewById<TextView>(R.id.tv_header).text = data.text ?: ""
-                itemView.findViewById<TextView>(R.id.tv_description).text =
-                    data.meanings?.let { it[0].translation?.text ?: ""} ?: ""
-                itemView.setOnClickListener {
-                    clickListener?.invoke(data.text ?: "err")
-                }
-            }
+            binding.property = data
+            binding.executePendingBindings()
+            binding.root.setOnClickListener { clickListener?.invoke(data) }
+//                itemView.setOnClickListener {
+//                    clickListener?.invoke(data.text ?: "err")
+//                }
         }
     }
 

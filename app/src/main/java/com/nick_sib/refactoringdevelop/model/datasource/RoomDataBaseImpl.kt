@@ -1,17 +1,18 @@
 package com.nick_sib.refactoringdevelop.model.datasource
 
 import com.nick_sib.refactoringdevelop.model.data.DataModel
-import io.reactivex.Single
-import io.reactivex.SingleSource
-import io.reactivex.internal.operators.single.SingleDoOnError
-import io.reactivex.rxjava3.core.Observable
+import com.nick_sib.refactoringdevelop.model.room.DataBase
 
-class RoomDataBaseImpl: IDataSource<List<DataModel>> {
+class RoomDataBaseImpl(
+    private val historyDao: DataBase
+): IDataSource<List<DataModel>, String> {
 
-    override fun getData(word: String): Observable<List<DataModel>> =
-         Observable.fromSingle {
-             it.onSuccess(emptyList())
-         }
+    override suspend fun getData(word: String): List<DataModel> =
+        historyDao.findData(word)
 
-        // }//empty()//error(Throwable("None local data"))
+    override suspend fun saveData(data: List<DataModel>): Boolean {
+        return historyDao.saveData(data)
+    }
+
+
 }

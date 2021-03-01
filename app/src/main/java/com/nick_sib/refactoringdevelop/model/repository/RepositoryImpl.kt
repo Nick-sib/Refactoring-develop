@@ -2,13 +2,18 @@ package com.nick_sib.refactoringdevelop.model.repository
 
 import com.nick_sib.refactoringdevelop.model.data.DataModel
 import com.nick_sib.refactoringdevelop.model.datasource.IDataSource
-import io.reactivex.rxjava3.core.Observable
 
 
-class RepositoryImpl(
-    private val dataSource: IDataSource<List<DataModel>>
-) : IRepository<List<DataModel>> {
+class RepositoryImpl<T, R>(
+    private val dataSource: IDataSource<T, R>
+) : IRepository<T, R> {
 
-    override fun getData(word: String): Observable<List<DataModel>> =
+    override suspend fun getData(word: R): T =
         dataSource.getData(word)
+
+    override suspend fun saveData(data: T) {
+        dataSource.saveData(data)
+    }
+
+
 }

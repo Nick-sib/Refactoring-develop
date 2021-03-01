@@ -1,13 +1,13 @@
 package com.nick_sib.refactoringdevelop.utils
 
-import com.nick_sib.refactoringdevelop.model.data.AppState
+import com.nick_sib.refactoringdevelop.model.data.AppStateList
 import com.nick_sib.refactoringdevelop.model.data.DataModel
 import com.nick_sib.refactoringdevelop.model.data.Meanings
 
-fun parseSearchResults(state: AppState): AppState {
+fun parseSearchResults(state: AppStateList): AppStateList {
     val newSearchResults = arrayListOf<DataModel>()
     when (state) {
-        is AppState.Success -> {
+        is AppStateList.Success -> {
             val searchResults = state.data
             if (!searchResults.isNullOrEmpty()) {
                 for (searchResult in searchResults) {
@@ -16,7 +16,7 @@ fun parseSearchResults(state: AppState): AppState {
             }
         }
     }
-    return AppState.Success(newSearchResults)
+    return AppStateList.Success(newSearchResults)
 }
 
 private fun parseResult(dataModel: DataModel, newDataModels: ArrayList<DataModel>) {
@@ -32,15 +32,3 @@ private fun parseResult(dataModel: DataModel, newDataModels: ArrayList<DataModel
         }
     }
 }
-
-//fun convertMeaningsToString(meanings: List<Meanings>): String {
-//    var meaningsSeparatedByComma = String()
-//    for ((index, meaning) in meanings.withIndex()) {
-//        meaningsSeparatedByComma += if (index + 1 != meanings.size) {
-//            String.format("%s%s", meaning.translation?.text, ", ")
-//        } else {
-//            meaning.translation?.text
-//        }
-//    }
-//    return meaningsSeparatedByComma
-//}

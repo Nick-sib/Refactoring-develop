@@ -1,27 +1,23 @@
-package com.nick_sib.refactoringdevelop.view
+package com.nick_sib.refactoringdevelop.view.activitys
 
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
-import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.DividerItemDecoration
 import com.nick_sib.refactoringdevelop.R
 import com.nick_sib.refactoringdevelop.databinding.ActivityMainBinding
 import com.nick_sib.refactoringdevelop.model.ThrowableInternet
-import com.nick_sib.refactoringdevelop.model.data.AppState
-import com.nick_sib.refactoringdevelop.utils.network.isOnline
+import com.nick_sib.refactoringdevelop.model.data.AppStateList
+import com.nick_sib.refactoringdevelop.model.data.DataModel
 import com.nick_sib.refactoringdevelop.view.adapter.MainAdapter
 import com.nick_sib.refactoringdevelop.view.base.BaseActivity
 import com.nick_sib.refactoringdevelop.view.fragment.SearchDialogFragment
 import com.nick_sib.refactoringdevelop.view.main.MainInteractor
 import com.nick_sib.refactoringdevelop.view.main.MainViewModel
-import dagger.android.AndroidInjection
-import javax.inject.Inject
+import org.koin.android.viewmodel.ext.android.viewModel
 
-class MainActivity : BaseActivity<AppState, MainInteractor>() {
+class MainActivity : BaseActivity<AppStateList, String, MainInteractor<AppStateList, String>>() {
 
-    @Inject
-    internal lateinit var viewModelFactory: ViewModelProvider.Factory
-    override lateinit var model: MainViewModel
+    override val model: MainViewModel by viewModel()
 
     private lateinit var binding: ActivityMainBinding
     private val loadDialog: View by lazy {
@@ -29,56 +25,60 @@ class MainActivity : BaseActivity<AppState, MainInteractor>() {
     }
     private lateinit var adapter: MainAdapter
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
-        AndroidInjection.inject(this)
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        if (!isNetworkAvailable)
-            showNoInternetConnectionDialog()
-
-        model = viewModelFactory.create(MainViewModel::class.java)
-        model.subscribe().observe(this@MainActivity) { renderData(it) }
+        model.subscribe().observe(this@MainActivity, { renderData(it) })
+        model.internetState.observe(this, { showInternetState(it) } )
 
         binding.searchFab.setOnClickListener {
             val searchDialogFragment = SearchDialogFragment.instance()
             searchDialogFragment.setOnSearchClickListener {
-                isNetworkAvailable = isOnline(applicationContext)
-                model.getData(it, isNetworkAvailable)
-                if (!isNetworkAvailable)
-                    showErrorDialog(
-                        binding.root,
-                        R.string.dialog_message_device_is_offline,
-                        R.string.dialog_button_cancel)
+                model.getData(it)
             }
             searchDialogFragment.show(supportFragmentManager, BOTTOM_SHEET_FRAGMENT_DIALOG_TAG)
         }
-        adapter = MainAdapter {
-            Toast.makeText(this, it, Toast.LENGTH_SHORT).show()
+
+        adapter = MainAdapter { data ->
+            startActivity(DescriptionActivity.getIntent(this@MainActivity, data))
         }
+
+        val itemDecorator = DividerItemDecoration(this, DividerItemDecoration.VERTICAL)
+        binding.rvSearchResult.addItemDecoration(itemDecorator)
+
         binding.rvSearchResult.adapter = adapter
     }
 
-    override fun renderData(dataModel: AppState) {
+    override fun renderData(dataModel: AppStateList) {
         when (dataModel) {
-            is AppState.Success -> {
+            is AppStateList.Success -> {
                 hideLoadingDialog()
                 hideErrorDialog()
                 adapter.data = dataModel.data ?: emptyList()
             }
-            is AppState.Error -> {
+            is AppStateList.Error -> {
                 if (dataModel.error is ThrowableInternet)
                     showErrorDialog(
                         binding.root,
                         R.string.dialog_message_device_is_offline)
                 else showErrorDialog(binding.root, dataModel.error.message, null)
             }
-            is AppState.Loading -> {
+            is AppStateList.Loading -> {
                 hideErrorDialog()
                 showLoadingIndocator()
             }
         }
+    }
+
+    private fun showInternetState(state: Boolean){
+        if (state) hideErrorDialog() else
+            showErrorDialog(
+                binding.root,
+                R.string.dialog_message_device_is_offline
+            )
     }
 
     override fun hideLoadingDialog(){

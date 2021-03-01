@@ -2,22 +2,35 @@ package com.nick_sib.refactoringdevelop.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.nick_sib.refactoringdevelop.model.data.AppState
-import com.nick_sib.refactoringdevelop.rx.SchedulerProvider
-import io.reactivex.rxjava3.disposables.CompositeDisposable
+import kotlinx.coroutines.*
+import kotlin.coroutines.CoroutineContext
 
+abstract class BaseViewModel<T>(
+    protected val _searchResult: MutableLiveData<T> = MutableLiveData(),
+) : ViewModel(), CoroutineScope {
 
-abstract class BaseViewModel<T : AppState>(
-    protected open val liveDataForViewToObserve: MutableLiveData<T> = MutableLiveData(),
-    protected open val compositeDisposable: CompositeDisposable = CompositeDisposable(),
-    protected open val schedulerProvider: SchedulerProvider = SchedulerProvider()
-) : ViewModel() {
+    override val coroutineContext: CoroutineContext by lazy {
+        Dispatchers.Default + Job()
+    }
 
-    abstract fun getData(word: String, isOnline: Boolean)
+    protected val viewModelCoroutineScope = CoroutineScope(
+        Dispatchers.Main
+                + SupervisorJob()
+                + CoroutineExceptionHandler { _, throwable ->
+            handleError(throwable)
+        })
 
     override fun onCleared() {
-        compositeDisposable.clear()
         super.onCleared()
+        cancelJob()
     }
+
+    protected fun cancelJob() {
+        viewModelCoroutineScope.coroutineContext.cancelChildren()
+    }
+
+    abstract fun getData(word: String)
+
+    abstract fun handleError(error: Throwable)
 
 }
