@@ -10,7 +10,7 @@ class RoomDataBaseImpl(
     override suspend fun getData(word: String): List<DataModel> =
         historyDao.findData(word)
 
-    override suspend fun saveData(data: List<DataModel>): Boolean {
+    override suspend fun saveData(data: List<DataModel>): List<DataModel> {
         return historyDao.saveData(data)
     }
 

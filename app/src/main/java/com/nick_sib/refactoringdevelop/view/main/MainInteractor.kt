@@ -8,15 +8,14 @@ class MainInteractor<T, R>(
     private val repositoryLocal: IRepository<T, R>
 ) : IInteractor<T, R> {
 
-    override suspend fun getData(word: R, fromRemoteSource: Boolean): T {
-        val res = if (fromRemoteSource) {
-            val data = repositoryRemote.getData(word)
-            repositoryLocal.saveData(data)
+    override suspend fun getData(request: R, fromRemoteSource: Boolean): T {
+        return if (fromRemoteSource) {
+            val data = repositoryRemote.getData(request)
+            repositoryLocal.setData(data)
             data
         } else {
-            repositoryLocal.getData(word)
+            repositoryLocal.getData(request)
         }
-        return res
     }
 
 }

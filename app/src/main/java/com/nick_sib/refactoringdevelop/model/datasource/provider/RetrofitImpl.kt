@@ -39,7 +39,7 @@ class RetrofitImpl: IDataSource<List<DataModel>, String> {
         private const val BASE_URL_LOCATIONS = "https://dictionary.skyeng.ru/api/public/v1/"
     }
 
-    override suspend fun saveData(data: List<DataModel>): Boolean {
+    override suspend fun saveData(data: List<DataModel>): List<DataModel> {
         TODO("Not yet implemented")
     }
 
