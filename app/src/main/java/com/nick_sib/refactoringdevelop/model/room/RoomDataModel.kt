@@ -7,7 +7,7 @@ import androidx.room.PrimaryKey
 @Entity
 data class RoomDataModel(
     @PrimaryKey(autoGenerate = true)
-    val id: Long? = null,
+    val id: Long,
     val favorite: Boolean = false,
     val text: String?,
 )

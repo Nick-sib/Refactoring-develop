@@ -17,22 +17,21 @@ abstract class DataBase : RoomDatabase() {
 
     fun saveData(data: List<DataModel>): List<DataModel> {
         return data.map {
-            val dataID = dataModelDao.tryInsert(it.text)
-            meaningsDao.insertOrUpdate(dataID, it.meanings)
-            it.id = dataID
-            it.isFavorite = dataModelDao.getFavorite(dataID)
+            dataModelDao.tryInsert(it.id, it.text)
+            meaningsDao.insertOrUpdate(it.id, it.meanings)
+            it.isFavorite = dataModelDao.getFavorite(it.id)
             it
         }
     }
 
     fun findData(word: String): List<DataModel> =
         dataModelDao.findByWord("%$word%").map {
-            val rr = it.id?.let {  id ->
+            val meanings = it.id.let {  id ->
                 meaningsDao.getItemByDataId(id)
-            }?.map { res ->
+            }.map { res ->
                 Meanings(Translation(res.translation), res.imageUrl)
             }
-            DataModel( it.text, rr).apply {
+            DataModel(it.id, it.text, meanings).apply {
                 isFavorite = it.favorite
             }
         }

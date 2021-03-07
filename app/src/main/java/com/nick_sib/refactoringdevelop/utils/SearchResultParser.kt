@@ -28,8 +28,7 @@ private fun parseResult(dataModel: DataModel, newDataModels: ArrayList<DataModel
             }
         }
         if (newMeanings.isNotEmpty()) {
-            newDataModels.add(DataModel(dataModel.text, newMeanings).apply {
-                id = dataModel.id
+            newDataModels.add(DataModel(dataModel.id, dataModel.text, newMeanings).apply {
                 isFavorite = dataModel.isFavorite
             })
         }

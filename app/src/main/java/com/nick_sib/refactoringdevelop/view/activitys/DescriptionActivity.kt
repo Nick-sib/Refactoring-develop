@@ -32,7 +32,7 @@ class DescriptionActivity : BaseActivity<AppStateData, String, MainInteractor<Ap
         supportActionBar?.setHomeButtonEnabled(true)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        data = intent.extras?.getParcelable(DATA_EXTRA) ?: DataModel(null, null)
+        data = intent.extras?.getParcelable(DATA_EXTRA) ?: DataModel(-1, null, null)
         binding.property = data
         binding.handler = this
         binding.executePendingBindings()

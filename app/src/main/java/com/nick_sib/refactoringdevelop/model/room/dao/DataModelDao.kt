@@ -23,8 +23,8 @@ interface DataModelDao {
     @Query("SELECT * FROM RoomDataModel WHERE text LIKE :word")
     fun findByWord(word: String): List<RoomDataModel>
 
-    fun tryInsert(text: String?): Long =
-        getItemById(text) ?: insert(RoomDataModel(text = text))
+    fun tryInsert(id: Long, text: String?): Long =
+        getItemById(text) ?: insert(RoomDataModel(id = id, text = text))
 
     @Query("SELECT favorite FROM RoomDataModel WHERE id = :id")
     fun getFavorite(id: Long): Boolean

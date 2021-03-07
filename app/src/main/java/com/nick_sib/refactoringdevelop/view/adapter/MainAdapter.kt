@@ -19,7 +19,7 @@ class MainAdapter(
     var data: List<DataModel> = emptyList()
         set(value) {
             field = if (value.isEmpty())
-                listOf(DataModel(null, null))
+                listOf(DataModel(-1,null, null))
             else
                 value
             notifyDataSetChanged()

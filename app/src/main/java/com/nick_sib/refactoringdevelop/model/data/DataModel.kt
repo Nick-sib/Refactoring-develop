@@ -7,10 +7,9 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class DataModel(
+    val id: Long = -1L,
     val text: String?,
     val meanings: List<Meanings>?,
-
-    var id: Long = -1L,
     var isFavorite: Boolean = false
 ): Parcelable {
     @IgnoredOnParcel
