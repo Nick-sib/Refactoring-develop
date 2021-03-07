@@ -1,4 +1,4 @@
-package com.nick_sib.refactoringdevelop.view.main
+package com.nick_sib.refactoringdevelop.view.activitys.main
 
 import com.nick_sib.refactoringdevelop.model.repository.IRepository
 import com.nick_sib.refactoringdevelop.presenter.IInteractor
@@ -16,6 +16,11 @@ class MainInteractor<T, R>(
         } else {
             repositoryLocal.getData(request)
         }
+    }
+
+    override suspend fun saveData(data: T): Boolean {
+        repositoryLocal.setData(data)
+        return true
     }
 
 }

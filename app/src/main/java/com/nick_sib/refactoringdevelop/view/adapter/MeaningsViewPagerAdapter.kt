@@ -7,9 +7,14 @@ import com.nick_sib.refactoringdevelop.model.data.Meanings
 import com.nick_sib.refactoringdevelop.view.fragment.PageFragment
 
 class MeaningsViewPagerAdapter(
-    private val data: List<Meanings>,
+    private var data: List<Meanings>,
     fm: FragmentManager
 ): FragmentPagerAdapter(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
+
+    fun setData(value: List<Meanings>) {
+        data = value
+        notifyDataSetChanged()
+    }
 
     override fun getCount() = data.size
 

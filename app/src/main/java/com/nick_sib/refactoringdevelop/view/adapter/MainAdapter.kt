@@ -55,9 +55,6 @@ class MainAdapter(
             binding.property = data
             binding.executePendingBindings()
             binding.root.setOnClickListener { clickListener?.invoke(data) }
-//                itemView.setOnClickListener {
-//                    clickListener?.invoke(data.text ?: "err")
-//                }
         }
     }
 

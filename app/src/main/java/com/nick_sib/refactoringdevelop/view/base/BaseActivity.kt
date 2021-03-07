@@ -4,14 +4,12 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.snackbar.Snackbar
 import com.nick_sib.refactoringdevelop.R
-import com.nick_sib.refactoringdevelop.presenter.IInteractor
 import com.nick_sib.refactoringdevelop.view.ui.AlertDialogFragment
-import com.nick_sib.refactoringdevelop.viewmodel.BaseViewModel
 
 
-abstract class BaseActivity<T, S, I : IInteractor<T, S>> : AppCompatActivity() {
+abstract class BaseActivity<T, S> : AppCompatActivity() {
 
-    abstract val model: BaseViewModel<T>
+    abstract val model: BaseViewModel<T, S>
     abstract fun hideLoadingDialog()
 
     private var errorSnack: Snackbar? = null

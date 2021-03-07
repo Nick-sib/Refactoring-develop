@@ -10,15 +10,14 @@
             type="com.nick_sib.refactoringdevelop.model.data.DataModel" />
         <variable
             name="handler"
-            type="com.nick_sib.refactoringdevelop.view.activitys.DescriptionActivity" />
+            type="com.nick_sib.refactoringdevelop.view.activitys.description.DescriptionActivity" />
 
     </data>
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/description_screen_swipe_refresh_layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="@dimen/margin_xx_small">
+        android:layout_height="match_parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -26,6 +25,14 @@
             android:orientation="vertical"
             android:layout_marginTop="@dimen/margin_medium"
             android:fitsSystemWindows="true">
+
+
+            <include
+                android:id="@+id/v_load_dialog"
+                android:layout_height="match_parent"
+                android:layout_width="match_parent"
+                layout="@layout/fragment_dialog_load"
+                android:visibility="gone"/>
 
             <TextView
                 android:id="@+id/description_header"

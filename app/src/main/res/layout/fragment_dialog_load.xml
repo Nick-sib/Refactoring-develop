@@ -27,7 +27,8 @@
         app:layout_constraintEnd_toEndOf="@id/v_circle"
         app:layout_constraintStart_toStartOf="@id/v_circle"
         app:layout_constraintTop_toTopOf="@id/v_circle"
-        app:layout_constraintBottom_toBottomOf="@id/v_circle"/>
+        app:layout_constraintBottom_toBottomOf="@id/v_circle"
+        android:contentDescription="@string/def_image_description"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

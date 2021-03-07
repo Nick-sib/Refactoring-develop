@@ -15,18 +15,29 @@ interface DataModelDao {
     fun delete(data: RoomDataModel)
 
     @Query("SELECT id from RoomDataModel WHERE text= :text LIMIT 1")
-    fun getItemById(text: String?): Long?
+    fun getIdByText(text: String?): Long?
 
-    @Query("SELECT * FROM RoomDataModel")
-    fun getAll(): List<RoomDataModel>
+    @Query("SELECT id FROM RoomDataModel WHERE id = :id LIMIT 1")
+    fun checkId(id: Long): Long?
+
+    @Query("SELECT * FROM RoomDataModel WHERE favorite = 1 ORDER BY text")
+    fun getAllFavorite(): List<RoomDataModel>
 
     @Query("SELECT * FROM RoomDataModel WHERE text LIKE :word")
     fun findByWord(word: String): List<RoomDataModel>
 
+    @Query("SELECT * FROM RoomDataModel WHERE id = :id")
+    fun findById(id: Long): RoomDataModel?
+
     fun tryInsert(id: Long, text: String?): Long =
-        getItemById(text) ?: insert(RoomDataModel(id = id, text = text))
+        checkId(id) ?: insert(RoomDataModel(id = id, text = text))
 
     @Query("SELECT favorite FROM RoomDataModel WHERE id = :id")
     fun getFavorite(id: Long): Boolean
+
+
+
+//    @Query("SELECT favorite FROM RoomDataModel WHERE id = :id")
+//    fun setFavorite(id: Long, value: Boolean)
 
 }

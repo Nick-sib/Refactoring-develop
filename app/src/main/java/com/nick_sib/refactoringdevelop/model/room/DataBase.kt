@@ -24,8 +24,14 @@ abstract class DataBase : RoomDatabase() {
         }
     }
 
-    fun findData(word: String): List<DataModel> =
-        dataModelDao.findByWord("%$word%").map {
+    fun saveData(data: DataModel): DataModel {
+        val dd = RoomDataModel(data.id, data.isFavorite, data.text)
+        dataModelDao.update(dd)
+        return data
+    }
+
+    fun findData(word: String): List<DataModel> = (if (word == "*")
+        dataModelDao.getAllFavorite() else dataModelDao.findByWord("%$word%")).map {
             val meanings = it.id.let {  id ->
                 meaningsDao.getItemByDataId(id)
             }.map { res ->
@@ -36,4 +42,13 @@ abstract class DataBase : RoomDatabase() {
             }
         }
 
+    fun findData(id: Long): DataModel =
+        dataModelDao.findById(id)?.let {
+            val meanings = it.id.let {  id ->
+                meaningsDao.getItemByDataId(id)
+            }.map { res ->
+                Meanings(Translation(res.translation), res.imageUrl)
+            }
+            DataModel(it.id, it.text, meanings, it.favorite)
+        } ?: DataModel(-1,null, null)
 }

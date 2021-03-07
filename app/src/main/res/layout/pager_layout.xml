@@ -19,21 +19,22 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:padding="50dp"
-            android:scaleType="centerCrop"
+            android:scaleType="fitCenter"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="@id/tv_text"
             android:visibility="@{property.imageUrl != null ? View.VISIBLE : View.GONE }"
             binding:imageUrl = "@{property.imageUrl}"
+            android:contentDescription="@string/def_image_description"
             tools:src="@drawable/loading_animation"/>
 
-                <TextView
-                    android:id="@+id/tv_text"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    android:text="@{property.text}"
-                    tools:text="TEXT TEXT"/>
-            </androidx.constraintlayout.widget.ConstraintLayout>
-        </layout>
+        <TextView
+            android:id="@+id/tv_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:text="@{property.text}"
+            tools:text="TEXT TEXT"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

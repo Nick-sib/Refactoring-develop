@@ -1,4 +1,4 @@
-package com.nick_sib.refactoringdevelop.view.main
+package com.nick_sib.refactoringdevelop.view.activitys.main
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -7,7 +7,7 @@ import com.nick_sib.refactoringdevelop.model.data.AppStateList
 import com.nick_sib.refactoringdevelop.model.data.DataModel
 import com.nick_sib.refactoringdevelop.utils.network.isOnlineFlow
 import com.nick_sib.refactoringdevelop.utils.parseSearchResults
-import com.nick_sib.refactoringdevelop.viewmodel.BaseViewModel
+import com.nick_sib.refactoringdevelop.view.base.BaseViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.channels.consumeEach
@@ -17,7 +17,7 @@ import kotlin.coroutines.CoroutineContext
 
 class MainViewModel(
     private val interactor: MainInteractor<List<DataModel>, String>,
-) : BaseViewModel<AppStateList>() {
+) : BaseViewModel<AppStateList, String>() {
 
     override val coroutineContext: CoroutineContext by lazy {
         Dispatchers.Main + Job()
@@ -33,7 +33,6 @@ class MainViewModel(
 
     fun subscribe(): LiveData<AppStateList> = searchResult
 
-
     init {
         launch {
             networkChanel.consumeEach {
@@ -42,11 +41,11 @@ class MainViewModel(
         }
     }
 
-    override fun getData(word: String) {
+    override fun getData(data: String) {
         _searchResult.value = AppStateList.Loading(null)
         cancelJob()
         viewModelCoroutineScope.launch {
-            startInteractor(word, _internetState.value ?: false)
+            startInteractor(data, _internetState.value ?: false)
         }
     }
 
@@ -62,5 +61,9 @@ class MainViewModel(
         super.onCleared()
         cancelJob()
         networkChanel.cancel()
+    }
+
+    override fun setData(data: AppStateList) {
+        TODO("Not yet implemented")
     }
 }

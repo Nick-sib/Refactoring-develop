@@ -1,11 +1,11 @@
-package com.nick_sib.refactoringdevelop.viewmodel
+package com.nick_sib.refactoringdevelop.view.base
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.*
 import kotlin.coroutines.CoroutineContext
 
-abstract class BaseViewModel<T>(
+abstract class BaseViewModel<T, R>(
     protected val _searchResult: MutableLiveData<T> = MutableLiveData(),
 ) : ViewModel(), CoroutineScope {
 
@@ -29,7 +29,9 @@ abstract class BaseViewModel<T>(
         viewModelCoroutineScope.coroutineContext.cancelChildren()
     }
 
-    abstract fun getData(word: String)
+    abstract fun getData(data: R)
+
+    abstract fun setData(data: T)
 
     abstract fun handleError(error: Throwable)
 

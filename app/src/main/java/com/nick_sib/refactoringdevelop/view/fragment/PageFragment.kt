@@ -10,8 +10,8 @@ import com.nick_sib.refactoringdevelop.model.data.Meanings
 
 class PageFragment: Fragment() {
 
-    lateinit var data: Meanings
-    lateinit var binding: PagerLayoutBinding
+    private lateinit var data: Meanings
+    private lateinit var binding: PagerLayoutBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         data = arguments?.getParcelable(EXTRA_DATA) ?: Meanings(null, null)

@@ -9,8 +9,6 @@
 
     <string name="dialog_button_cancel">Cancel</string>
     <string name="dialog_title_stub">Undefined error</string>
-    <string name="dialog_tittle_sorry">Sorry</string>
-    <string name="empty_server_response_on_success">Couldn\'t find any definitions</string>
 
     <string name="dialog_title_device_is_offline">No internet connection</string>
     <string name="dialog_message_device_is_offline">You can not use app without internet connection. Please, check
@@ -19,6 +17,5 @@
 
     <string name="def_image_description">image as is</string>
 
-    <string name="toast_is_favorite">%s is favorite</string>
-    <string name="toast_is_not_favorite">%s is not favorite</string>
+    <string name="menu_title_history">History</string>
 </resources>

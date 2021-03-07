@@ -9,4 +9,9 @@ interface ApiService {
 
     @GET("words/search")
     fun searchAsync(@Query("search") wordToSearch: String): Deferred<List<DataModel>>
+
+    @GET("meanings")
+    fun getDescriptionAsync(@Query("ids") id: Long): Deferred<List<DataModel>>
+
+//    https://dictionary.skyeng.ru/api/public/v1/meanings?ids=100
 }
