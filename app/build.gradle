@@ -42,14 +42,15 @@ dependencies {
     implementation project(Modules.repository)
     implementation project(Modules.core)
     implementation project(Modules.descriptionScreen)
+    implementation project(Modules.historyScreen)
 
-    implementation Design.constraint
 
     //Design
     implementation Tools.core
     implementation Design.appcompat
     implementation Design.material
     implementation Design.multidex
+    implementation Design.constraint
 
     //Kotlin
     implementation Kotlin.stdlib

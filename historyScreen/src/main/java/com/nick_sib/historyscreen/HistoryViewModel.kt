@@ -1,4 +1,4 @@
-package com.nick_sib.refactoringdevelop.view.activitys.history
+package com.nick_sib.historyscreen
 
 import androidx.lifecycle.LiveData
 import com.nick_sib.model.AppStateList

@@ -10,7 +10,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.RefactoringDevelop">
-        <activity android:name=".view.activitys.main.MainActivity">
+        <activity android:name=".view.activitys.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -21,7 +21,7 @@
 <!--            android:name="com.nick_sib.descriptionscreen.DescriptionActivity"/>-->
 
         <activity
-            android:name=".view.activitys.history.HistoryActivity"/>
+            android:name="com.nick_sib.historyscreen.HistoryActivity"/>
 
     </application>
 

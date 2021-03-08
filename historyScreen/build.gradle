@@ -20,21 +20,18 @@ dependencies {
     implementation project(Modules.model)
     implementation project(Modules.core)
     implementation project(Modules.repository)
+    implementation project(Modules.descriptionScreen)
 
     //Design
     implementation Tools.core
     implementation Design.appcompat
     implementation Design.material
-    implementation Design.swiperefresh
 
     //Coroutines
     implementation Coroutines.coroutines_core
 
     //Koin
     implementation Koin.koin_view_model
-
-    // Glide
-    implementation Glide.glide
 
     //test
     testImplementation TestImpl.junit

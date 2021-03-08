@@ -1,4 +1,4 @@
-package com.nick_sib.refactoringdevelop.view.activitys.main
+package com.nick_sib.refactoringdevelop.view.activitys
 
 import com.nick_sib.model.AppStateList
 import com.nick_sib.model.DataModel

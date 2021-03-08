@@ -1,4 +1,4 @@
-package com.nick_sib.refactoringdevelop.view.adapter
+package com.nick_sib.core.adapter
 
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView

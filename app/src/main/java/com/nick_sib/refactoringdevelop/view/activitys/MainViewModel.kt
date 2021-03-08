@@ -1,4 +1,4 @@
-package com.nick_sib.refactoringdevelop.view.activitys.main
+package com.nick_sib.refactoringdevelop.view.activitys
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

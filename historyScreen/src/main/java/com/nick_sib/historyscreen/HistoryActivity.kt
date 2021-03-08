@@ -1,4 +1,4 @@
-package com.nick_sib.refactoringdevelop.view.activitys.history
+package com.nick_sib.historyscreen
 
 import android.os.Bundle
 import android.view.MenuItem
@@ -6,11 +6,9 @@ import android.view.View
 import androidx.recyclerview.widget.DividerItemDecoration
 import com.nick_sib.model.AppStateList
 import com.nick_sib.model.ThrowableInternet
-import com.nick_sib.refactoringdevelop.R
-import com.nick_sib.refactoringdevelop.databinding.ActivityHistoryBinding
-import com.nick_sib.descriptionscreen.DescriptionActivity
-import com.nick_sib.refactoringdevelop.view.adapter.MainAdapter
 import com.nick_sib.core.BaseActivity
+import com.nick_sib.core.adapter.MainAdapter
+import com.nick_sib.historyscreen.databinding.ActivityHistoryBinding
 import org.koin.android.viewmodel.ext.android.viewModel
 
 class HistoryActivity: BaseActivity<AppStateList, String>() {

@@ -1,13 +1,12 @@
-package com.nick_sib.refactoringdevelop.view.adapter
+package com.nick_sib.core.adapter
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.nick_sib.core.R
+import com.nick_sib.core.databinding.RecyclerviewItemSearchResultBinding
 import com.nick_sib.model.DataModel
-import com.nick_sib.refactoringdevelop.R
-import com.nick_sib.refactoringdevelop.databinding.RecyclerviewItemSearchResultBinding
-
 
 class MainAdapter(
     val clickListener: ((DataModel) -> Unit)? = null
@@ -38,7 +37,8 @@ class MainAdapter(
             RecyclerEmptySearchHolder(inflater
                 .inflate(R.layout.recyclerview_item_empty_search_result, parent, false))
         } else {
-            RecyclerItemViewHolder(RecyclerviewItemSearchResultBinding.inflate(
+            RecyclerItemViewHolder(
+                RecyclerviewItemSearchResultBinding.inflate(
                 LayoutInflater.from(parent.context)))
         }
     }

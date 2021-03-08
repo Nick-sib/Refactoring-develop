@@ -1,4 +1,4 @@
-package com.nick_sib.refactoringdevelop.view.activitys.main
+package com.nick_sib.refactoringdevelop.view.activitys
 
 import android.content.Intent
 import android.os.Bundle
@@ -11,9 +11,8 @@ import com.nick_sib.model.AppStateList
 import com.nick_sib.model.ThrowableInternet
 import com.nick_sib.refactoringdevelop.R
 import com.nick_sib.refactoringdevelop.databinding.ActivityMainBinding
-import com.nick_sib.descriptionscreen.DescriptionActivity
-import com.nick_sib.refactoringdevelop.view.activitys.history.HistoryActivity
-import com.nick_sib.refactoringdevelop.view.adapter.MainAdapter
+import com.nick_sib.core.adapter.MainAdapter
+import com.nick_sib.historyscreen.HistoryActivity
 import com.nick_sib.refactoringdevelop.view.fragment.SearchDialogFragment
 import org.koin.android.viewmodel.ext.android.viewModel
 

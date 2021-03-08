@@ -11,7 +11,6 @@
         <variable
             name="handler"
             type="com.nick_sib.descriptionscreen.DescriptionActivity" />
-
     </data>
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
