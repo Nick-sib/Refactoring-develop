@@ -8,7 +8,7 @@
         <import type="android.view.View"/>
         <variable
             name="property"
-            type="com.nick_sib.refactoringdevelop.model.data.Meanings" />
+            type="com.nick_sib.model.Meanings" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

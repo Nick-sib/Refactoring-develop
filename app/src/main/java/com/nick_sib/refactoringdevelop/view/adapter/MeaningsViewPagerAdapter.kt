@@ -3,7 +3,7 @@ package com.nick_sib.refactoringdevelop.view.adapter
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
-import com.nick_sib.refactoringdevelop.model.data.Meanings
+import com.nick_sib.model.Meanings
 import com.nick_sib.refactoringdevelop.view.fragment.PageFragment
 
 class MeaningsViewPagerAdapter(

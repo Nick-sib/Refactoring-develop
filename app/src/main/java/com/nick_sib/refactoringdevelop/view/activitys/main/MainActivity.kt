@@ -6,10 +6,10 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import androidx.recyclerview.widget.DividerItemDecoration
+import com.nick_sib.model.AppStateList
+import com.nick_sib.model.ThrowableInternet
 import com.nick_sib.refactoringdevelop.R
 import com.nick_sib.refactoringdevelop.databinding.ActivityMainBinding
-import com.nick_sib.refactoringdevelop.model.ThrowableInternet
-import com.nick_sib.refactoringdevelop.model.data.AppStateList
 import com.nick_sib.refactoringdevelop.view.activitys.description.DescriptionActivity
 import com.nick_sib.refactoringdevelop.view.activitys.history.HistoryActivity
 import com.nick_sib.refactoringdevelop.view.adapter.MainAdapter
@@ -59,7 +59,7 @@ class MainActivity: BaseActivity<AppStateList, String>() {
             is AppStateList.Success -> {
                 hideLoadingDialog()
                 hideErrorDialog()
-                adapter.data = dataModel.data ?: emptyList()
+                adapter.data = dataModel.data
             }
             is AppStateList.Error -> {
                 if (dataModel.error is ThrowableInternet)

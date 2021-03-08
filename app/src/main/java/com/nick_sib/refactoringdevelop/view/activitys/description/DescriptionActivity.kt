@@ -5,11 +5,11 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
+import com.nick_sib.model.AppStateData
+import com.nick_sib.model.DataModel
+import com.nick_sib.model.ThrowableInternet
 import com.nick_sib.refactoringdevelop.R
 import com.nick_sib.refactoringdevelop.databinding.ActivityDescriptionBinding
-import com.nick_sib.refactoringdevelop.model.ThrowableInternet
-import com.nick_sib.refactoringdevelop.model.data.AppStateData
-import com.nick_sib.refactoringdevelop.model.data.DataModel
 import com.nick_sib.refactoringdevelop.view.adapter.MeaningsViewPagerAdapter
 import com.nick_sib.refactoringdevelop.view.base.BaseActivity
 import org.koin.android.viewmodel.ext.android.viewModel
@@ -81,9 +81,8 @@ class DescriptionActivity : BaseActivity<AppStateData, Long>() {
                 hideLoadingDialog()
                 hideErrorDialog()
                 binding.property = dataModel.data
-                adapter.setData(dataModel.data.meanings ?: emptyList())
+                adapter.setData(dataModel.data.meanings)
                 binding.executePendingBindings()
-//                adapter.data = dataModel.data ?: emptyList()
             }
             is AppStateData.Error -> {
                 if (dataModel.error is ThrowableInternet)

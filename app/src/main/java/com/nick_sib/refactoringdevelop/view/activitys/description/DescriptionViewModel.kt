@@ -1,10 +1,10 @@
 package com.nick_sib.refactoringdevelop.view.activitys.description
 
 import androidx.lifecycle.LiveData
-import com.nick_sib.refactoringdevelop.model.data.AppStateData
-import com.nick_sib.refactoringdevelop.model.data.DataModel
-import com.nick_sib.refactoringdevelop.model.repository.IRepository
+import com.nick_sib.model.AppStateData
+import com.nick_sib.model.DataModel
 import com.nick_sib.refactoringdevelop.view.base.BaseViewModel
+import com.nick_sib.repository.repository.IRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext

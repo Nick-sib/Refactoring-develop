@@ -16,8 +16,8 @@ object Releases {
 object Modules {
     const val app = ":app"
 //    const val core = ":core"
-//    const val model = ":model"
-//    const val repository = ":repository"
+    const val model = ":model"
+    const val repository = ":repository"
     const val utils = ":utils"
 //    //Features
 //    const val historyScreen = ":historyScreen"
@@ -54,8 +54,9 @@ object Versions {
 
     //Test
     const val jUnit = "4.13.2"//ok
+    const val jTest  = "1.1.2"//ok
     const val runner = "1.2.0"
-    const val espressoCore = "3.3.0"
+    const val espressoCore = "3.3.0"//ok
 }
 
 object Tools {
@@ -66,6 +67,7 @@ object Design {
     const val appcompat = "androidx.appcompat:appcompat:${Versions.appcompat}"//ok
     const val material = "com.google.android.material:material:${Versions.material}"//ok
     const val multidex = "com.android.support:multidex:${Versions.multidex}"//ok
+
 }
 
 object Kotlin {
@@ -101,6 +103,7 @@ object Room {
 
 object TestImpl {
     const val junit = "junit:junit:${Versions.jUnit}"
-    const val runner = "androidx.test:runner:${Versions.runner}"
+    const val j_test = "androidx.test.ext:junit:${Versions.jTest}"
+//    const val runner = "androidx.test:runner:${Versions.runner}"
     const val espresso = "androidx.test.espresso:espresso-core:${Versions.espressoCore}"
 }

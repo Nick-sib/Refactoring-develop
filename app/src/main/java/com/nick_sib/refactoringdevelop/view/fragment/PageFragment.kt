@@ -5,8 +5,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.nick_sib.model.Meanings
 import com.nick_sib.refactoringdevelop.databinding.PagerLayoutBinding
-import com.nick_sib.refactoringdevelop.model.data.Meanings
 
 class PageFragment: Fragment() {
 

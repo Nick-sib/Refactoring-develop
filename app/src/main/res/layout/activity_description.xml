@@ -7,7 +7,7 @@
         <import type="android.view.View"/>
         <variable
             name="property"
-            type="com.nick_sib.refactoringdevelop.model.data.DataModel" />
+            type="com.nick_sib.model.DataModel" />
         <variable
             name="handler"
             type="com.nick_sib.refactoringdevelop.view.activitys.description.DescriptionActivity" />

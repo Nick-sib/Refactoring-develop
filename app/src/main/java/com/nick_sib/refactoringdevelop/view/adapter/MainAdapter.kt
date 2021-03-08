@@ -4,9 +4,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.nick_sib.model.DataModel
 import com.nick_sib.refactoringdevelop.R
 import com.nick_sib.refactoringdevelop.databinding.RecyclerviewItemSearchResultBinding
-import com.nick_sib.refactoringdevelop.model.data.DataModel
+
 
 class MainAdapter(
     val clickListener: ((DataModel) -> Unit)? = null
@@ -19,7 +20,7 @@ class MainAdapter(
     var data: List<DataModel> = emptyList()
         set(value) {
             field = if (value.isEmpty())
-                listOf(DataModel(-1,null, null))
+                listOf(DataModel(-1,null))
             else
                 value
             notifyDataSetChanged()

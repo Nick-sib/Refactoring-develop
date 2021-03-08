@@ -1,3 +1,5 @@
 rootProject.name = "Refactoring develop"
 include ':app'
 include ':utils'
+include ':model'
+include ':repository'

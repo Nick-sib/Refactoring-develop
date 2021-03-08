@@ -1,7 +1,6 @@
 package com.nick_sib.refactoringdevelop.view.activitys.main
 
-import com.nick_sib.refactoringdevelop.model.repository.IRepository
-import com.nick_sib.refactoringdevelop.presenter.IInteractor
+import com.nick_sib.repository.repository.IRepository
 
 class MainInteractor<T, R>(
     private val repositoryRemote: IRepository<T, R>,

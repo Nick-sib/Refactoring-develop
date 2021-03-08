@@ -2,10 +2,9 @@ package com.nick_sib.refactoringdevelop.view.activitys.main
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.nick_sib.model.AppStateList
+import com.nick_sib.model.DataModel
 import com.nick_sib.refactoringdevelop.App
-import com.nick_sib.refactoringdevelop.model.data.AppStateList
-import com.nick_sib.refactoringdevelop.model.data.DataModel
-import com.nick_sib.refactoringdevelop.utils.parseSearchResults
 import com.nick_sib.refactoringdevelop.view.base.BaseViewModel
 import com.nick_sib.utils.isOnlineFlow
 import kotlinx.coroutines.Dispatchers
