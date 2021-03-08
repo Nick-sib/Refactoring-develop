@@ -1,10 +1,9 @@
-package com.nick_sib.refactoringdevelop.view.adapter
+package com.nick_sib.descriptionscreen
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import com.nick_sib.model.Meanings
-import com.nick_sib.refactoringdevelop.view.fragment.PageFragment
 
 class MeaningsViewPagerAdapter(
     private var data: List<Meanings>,

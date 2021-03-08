@@ -1,11 +1,10 @@
-package com.nick_sib.refactoringdevelop.view
+package com.nick_sib.descriptionscreen
 
 import android.widget.ImageView
 import androidx.core.net.toUri
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
-import com.nick_sib.refactoringdevelop.R
 
 
 @BindingAdapter("imageUrl")

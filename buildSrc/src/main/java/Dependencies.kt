@@ -15,11 +15,12 @@ object Releases {
 
 object Modules {
     const val app = ":app"
-//    const val core = ":core"
+    const val core = ":core"
     const val model = ":model"
     const val repository = ":repository"
     const val utils = ":utils"
 //    //Features
+    const val descriptionScreen = ":descriptionScreen"
 //    const val historyScreen = ":historyScreen"
 }
 
@@ -28,9 +29,11 @@ object Versions {
     const val core = "1.3.2"//ok
 
     //Design
-    const val appcompat = "1.3.0-beta01"//ok
+    const val appcompat = "1.2.0"//ok
     const val material = "1.3.0"//ok
     const val multidex = "1.0.3"//ok
+    const val swiperefresh = "1.1.0"
+    const val constraint = "2.0.4"
 
     //Kotlin
     const val stdlib = "1.4.30"//ok
@@ -67,7 +70,8 @@ object Design {
     const val appcompat = "androidx.appcompat:appcompat:${Versions.appcompat}"//ok
     const val material = "com.google.android.material:material:${Versions.material}"//ok
     const val multidex = "com.android.support:multidex:${Versions.multidex}"//ok
-
+    const val swiperefresh = "androidx.swiperefreshlayout:swiperefreshlayout:${Versions.swiperefresh}"
+    const val constraint = "androidx.constraintlayout:constraintlayout:${Versions.constraint}"
 }
 
 object Kotlin {

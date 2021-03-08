@@ -1,12 +1,12 @@
-package com.nick_sib.refactoringdevelop.view.fragment
+package com.nick_sib.descriptionscreen
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.nick_sib.descriptionscreen.databinding.PagerLayoutBinding
 import com.nick_sib.model.Meanings
-import com.nick_sib.refactoringdevelop.databinding.PagerLayoutBinding
 
 class PageFragment: Fragment() {
 
@@ -28,7 +28,6 @@ class PageFragment: Fragment() {
         binding.executePendingBindings()
         it.root
     }
-
 
     companion object {
         private val EXTRA_DATA = PageFragment::class.java.name + "EXTRA_DATA"

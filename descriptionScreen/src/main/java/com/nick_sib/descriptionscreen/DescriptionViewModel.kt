@@ -1,9 +1,9 @@
-package com.nick_sib.refactoringdevelop.view.activitys.description
+package com.nick_sib.descriptionscreen
 
 import androidx.lifecycle.LiveData
 import com.nick_sib.model.AppStateData
 import com.nick_sib.model.DataModel
-import com.nick_sib.refactoringdevelop.view.base.BaseViewModel
+import com.nick_sib.core.BaseViewModel
 import com.nick_sib.repository.repository.IRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

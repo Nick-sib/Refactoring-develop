@@ -1,4 +1,4 @@
-package com.nick_sib.refactoringdevelop.view.base
+package com.nick_sib.core
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel

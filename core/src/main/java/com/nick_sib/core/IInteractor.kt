@@ -1,4 +1,4 @@
-package com.nick_sib.refactoringdevelop.view.activitys.main
+package com.nick_sib.core
 
 interface IInteractor<T, R> {
     suspend fun getData(request: R, fromRemoteSource: Boolean): T

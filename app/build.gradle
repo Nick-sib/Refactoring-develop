@@ -36,13 +36,14 @@ android {
 }
 
 dependencies {
-//Modules
+    //Modules
     implementation project(Modules.utils)
     implementation project(Modules.model)
     implementation project(Modules.repository)
+    implementation project(Modules.core)
+    implementation project(Modules.descriptionScreen)
 
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
-    implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0"
+    implementation Design.constraint
 
     //Design
     implementation Tools.core

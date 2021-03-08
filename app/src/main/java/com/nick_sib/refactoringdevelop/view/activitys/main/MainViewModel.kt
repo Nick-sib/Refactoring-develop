@@ -2,10 +2,11 @@ package com.nick_sib.refactoringdevelop.view.activitys.main
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.nick_sib.core.BaseViewModel
+import com.nick_sib.core.MainInteractor
 import com.nick_sib.model.AppStateList
 import com.nick_sib.model.DataModel
 import com.nick_sib.refactoringdevelop.App
-import com.nick_sib.refactoringdevelop.view.base.BaseViewModel
 import com.nick_sib.utils.isOnlineFlow
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -13,6 +14,7 @@ import kotlinx.coroutines.channels.consumeEach
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import kotlin.coroutines.CoroutineContext
+
 
 class MainViewModel(
     private val interactor: MainInteractor<List<DataModel>, String>,

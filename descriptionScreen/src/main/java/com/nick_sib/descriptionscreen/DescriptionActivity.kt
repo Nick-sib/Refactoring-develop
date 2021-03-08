@@ -1,4 +1,4 @@
-package com.nick_sib.refactoringdevelop.view.activitys.description
+package com.nick_sib.descriptionscreen
 
 import android.content.Context
 import android.content.Intent
@@ -8,10 +8,8 @@ import android.view.View
 import com.nick_sib.model.AppStateData
 import com.nick_sib.model.DataModel
 import com.nick_sib.model.ThrowableInternet
-import com.nick_sib.refactoringdevelop.R
-import com.nick_sib.refactoringdevelop.databinding.ActivityDescriptionBinding
-import com.nick_sib.refactoringdevelop.view.adapter.MeaningsViewPagerAdapter
-import com.nick_sib.refactoringdevelop.view.base.BaseActivity
+import com.nick_sib.core.BaseActivity
+import com.nick_sib.descriptionscreen.databinding.ActivityDescriptionBinding
 import org.koin.android.viewmodel.ext.android.viewModel
 
 

@@ -8,9 +8,9 @@ import com.nick_sib.model.AppStateList
 import com.nick_sib.model.ThrowableInternet
 import com.nick_sib.refactoringdevelop.R
 import com.nick_sib.refactoringdevelop.databinding.ActivityHistoryBinding
-import com.nick_sib.refactoringdevelop.view.activitys.description.DescriptionActivity
+import com.nick_sib.descriptionscreen.DescriptionActivity
 import com.nick_sib.refactoringdevelop.view.adapter.MainAdapter
-import com.nick_sib.refactoringdevelop.view.base.BaseActivity
+import com.nick_sib.core.BaseActivity
 import org.koin.android.viewmodel.ext.android.viewModel
 
 class HistoryActivity: BaseActivity<AppStateList, String>() {
@@ -34,7 +34,7 @@ class HistoryActivity: BaseActivity<AppStateList, String>() {
         model.subscribe().observe(this, { renderData(it) })
 
         adapter = MainAdapter { data ->
-            startActivity(DescriptionActivity.getIntent(this, data))
+            startActivity(com.nick_sib.descriptionscreen.DescriptionActivity.getIntent(this, data))
         }
 
         val itemDecorator = DividerItemDecoration(this, DividerItemDecoration.VERTICAL)

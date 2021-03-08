@@ -1,4 +1,4 @@
-package com.nick_sib.refactoringdevelop.view.base
+package com.nick_sib.core
 
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity

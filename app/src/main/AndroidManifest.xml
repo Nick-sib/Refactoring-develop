@@ -17,8 +17,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".view.activitys.description.DescriptionActivity"/>
+<!--        <activity-->
+<!--            android:name="com.nick_sib.descriptionscreen.DescriptionActivity"/>-->
 
         <activity
             android:name=".view.activitys.history.HistoryActivity"/>

@@ -10,7 +10,7 @@
             type="com.nick_sib.model.DataModel" />
         <variable
             name="handler"
-            type="com.nick_sib.refactoringdevelop.view.activitys.description.DescriptionActivity" />
+            type="com.nick_sib.descriptionscreen.DescriptionActivity" />
 
     </data>
 

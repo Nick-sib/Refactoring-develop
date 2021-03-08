@@ -1,6 +1,7 @@
-package com.nick_sib.refactoringdevelop.view.activitys.main
+package com.nick_sib.core
 
 import com.nick_sib.repository.repository.IRepository
+
 
 class MainInteractor<T, R>(
     private val repositoryRemote: IRepository<T, R>,
