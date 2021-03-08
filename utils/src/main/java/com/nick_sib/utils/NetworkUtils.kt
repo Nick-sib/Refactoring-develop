@@ -1,4 +1,4 @@
-package com.nick_sib.refactoringdevelop.utils.network
+package com.nick_sib.utils
 
 import android.content.Context
 import android.net.ConnectivityManager
@@ -20,9 +20,7 @@ fun isOnlineFlow(context: Context): ReceiveChannel<Boolean> =
                 offer(false)
             }
             override fun onLost(network: Network) {
-                 offer(false)
+                offer(false)
             }
-    })
-}
-
-
+        })
+    }
