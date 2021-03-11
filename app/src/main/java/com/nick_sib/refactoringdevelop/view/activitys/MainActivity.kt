@@ -2,21 +2,30 @@ package com.nick_sib.refactoringdevelop.view.activitys
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.widget.Toast
 import androidx.recyclerview.widget.DividerItemDecoration
+import com.google.android.play.core.splitinstall.SplitInstallManager
+import com.google.android.play.core.splitinstall.SplitInstallManagerFactory
+import com.google.android.play.core.splitinstall.SplitInstallRequest
 import com.nick_sib.core.BaseActivity
 import com.nick_sib.model.AppStateList
 import com.nick_sib.model.ThrowableInternet
 import com.nick_sib.refactoringdevelop.R
 import com.nick_sib.refactoringdevelop.databinding.ActivityMainBinding
 import com.nick_sib.core.adapter.MainAdapter
-import com.nick_sib.historyscreen.HistoryActivity
+//import com.nick_sib.historyscreen.HistoryActivity
 import com.nick_sib.refactoringdevelop.view.fragment.SearchDialogFragment
 import org.koin.android.viewmodel.ext.android.viewModel
 
 class MainActivity: BaseActivity<AppStateList, String>() {
+
+    private val HISTORY_ACTIVITY_PATH = "com.nick_sib.historyscreen.HistoryActivity"
+    private val HISTORY_ACTIVITY_FEATURE_NAME = "historyScreen"
+    private lateinit var splitInstallManager: SplitInstallManager
 
     override val model: MainViewModel by viewModel()
 
@@ -100,9 +109,33 @@ class MainActivity: BaseActivity<AppStateList, String>() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.menu_history -> {
-                startActivity(Intent(this, HistoryActivity::class.java))
+                splitInstallManager = SplitInstallManagerFactory.create(applicationContext)
+                val request =
+                    SplitInstallRequest
+                        .newBuilder()
+                        .addModule(HISTORY_ACTIVITY_FEATURE_NAME)
+                        .build()
+
+                splitInstallManager
+                    .startInstall(request)
+                    .addOnSuccessListener {
+                        val intent = Intent().setClassName(packageName, HISTORY_ACTIVITY_PATH)
+                        startActivity(intent)
+                    }
+                    .addOnFailureListener {
+                        Log.d("myTAG", "Couldn't download feature: " + it.message)
+                        Toast.makeText(
+                            applicationContext,
+                            "Couldn't download feature: " + it.message,
+                            Toast.LENGTH_LONG
+                        ).show()
+                    }
                 true
             }
+//            R.id.menu_history -> {
+//                startActivity(Intent(this, HistoryActivity::class.java))
+//                true
+//            }
             else -> super.onOptionsItemSelected(item)
         }
     }

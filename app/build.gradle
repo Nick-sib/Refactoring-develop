@@ -42,7 +42,7 @@ dependencies {
     implementation project(Modules.repository)
     implementation project(Modules.core)
     implementation project(Modules.descriptionScreen)
-    implementation project(Modules.historyScreen)
+//    implementation project(Modules.historyScreen)
 
 
     //Design
@@ -70,6 +70,10 @@ dependencies {
 
     //Room
     implementation Room.runtime
+
+
+    //Google Play libraries
+    implementation GooglePlay.googlePlayCore
 
     //test
     testImplementation TestImpl.junit

@@ -29,6 +29,8 @@ class HistoryActivity: BaseActivity<AppStateList, String>() {
         supportActionBar?.setHomeButtonEnabled(true)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
+        injectDependencies()
+
         model.subscribe().observe(this, { renderData(it) })
 
         adapter = MainAdapter { data ->
