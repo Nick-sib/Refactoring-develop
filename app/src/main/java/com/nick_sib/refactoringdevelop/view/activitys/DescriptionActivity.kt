@@ -37,7 +37,7 @@ class DescriptionActivity : BaseActivity<AppStateData, String, MainInteractor<Ap
         binding.handler = this
         binding.executePendingBindings()
         binding.vpTranslate.adapter = MeaningsViewPagerAdapter(data.meanings ?: emptyList(),supportFragmentManager)
-
+        //only for commit
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

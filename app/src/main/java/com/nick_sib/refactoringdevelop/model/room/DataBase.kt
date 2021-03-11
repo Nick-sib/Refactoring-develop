@@ -15,12 +15,14 @@ abstract class DataBase : RoomDatabase() {
     abstract val dataModelDao: DataModelDao
     abstract val meaningsDao: MeaningsDao
 
-    fun saveData(data: List<DataModel>): Boolean {
-        data.forEach {
+    fun saveData(data: List<DataModel>): List<DataModel> {
+        return data.map {
             val dataID = dataModelDao.tryInsert(it.text)
             meaningsDao.insertOrUpdate(dataID, it.meanings)
+            it.id = dataID
+            it.isFavorite = dataModelDao.getFavorite(dataID)
+            it
         }
-        return data.isNotEmpty()
     }
 
     fun findData(word: String): List<DataModel> =

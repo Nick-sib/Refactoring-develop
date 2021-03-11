@@ -26,4 +26,7 @@ interface DataModelDao {
     fun tryInsert(text: String?): Long =
         getItemById(text) ?: insert(RoomDataModel(text = text))
 
+    @Query("SELECT favorite FROM RoomDataModel WHERE id = :id")
+    fun getFavorite(id: Long): Boolean
+
 }

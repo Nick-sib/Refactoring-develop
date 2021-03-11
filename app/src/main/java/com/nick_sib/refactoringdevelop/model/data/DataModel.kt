@@ -1,16 +1,18 @@
 package com.nick_sib.refactoringdevelop.model.data
 
 import android.os.Parcelable
+import androidx.versionedparcelable.ParcelField
 import kotlinx.parcelize.IgnoredOnParcel
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class DataModel(
     val text: String?,
-    val meanings: List<Meanings>?
-): Parcelable {
-    var isFavorite: Boolean = false
+    val meanings: List<Meanings>?,
 
+    var id: Long = -1L,
+    var isFavorite: Boolean = false
+): Parcelable {
     @IgnoredOnParcel
     val getMeaningsAll: String
         get() {
