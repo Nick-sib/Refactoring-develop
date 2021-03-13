@@ -5,7 +5,7 @@ plugins {
 }
 
 android {
-    compileSdkVersion Config.compile_sdk
+    compileSdkVersion 30
     defaultConfig {
         applicationId Config.application_id
         minSdkVersion Config.min_sdk
@@ -22,12 +22,9 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility Config.java_version
-        targetCompatibility Config.java_version
+        sourceCompatibility 1.8
+        targetCompatibility 1.8
     }
-//    kotlinOptions {
-//        jvmTarget = '1.8'
-//    }
 
     buildFeatures {
         viewBinding true
@@ -71,7 +68,6 @@ dependencies {
 
     //Room
     implementation Room.runtime
-
 
     //Google Play libraries
     implementation GooglePlay.googlePlayCore

@@ -8,6 +8,8 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.play.core.splitinstall.SplitInstallManager
 import com.google.android.play.core.splitinstall.SplitInstallManagerFactory
 import com.google.android.play.core.splitinstall.SplitInstallRequest
@@ -19,6 +21,7 @@ import com.nick_sib.core.adapter.MainAdapter
 import com.nick_sib.refactoringdevelop.databinding.ActivityMainBinding
 //import com.nick_sib.historyscreen.HistoryActivity
 import com.nick_sib.refactoringdevelop.view.fragment.SearchDialogFragment
+import com.nick_sib.utils.viewById
 import org.koin.android.viewmodel.ext.android.viewModel
 
 private const val HISTORY_ACTIVITY_PATH = "com.nick_sib.historyscreen.HistoryActivity"
@@ -30,6 +33,10 @@ class MainActivity: BaseActivity<AppStateList, String>() {
     private lateinit var splitInstallManager: SplitInstallManager
 
     override val model: MainViewModel by viewModel()
+
+    private val mainActivityRecyclerView by viewById<RecyclerView>(R.id.rv_search_result)
+    private val searchFAB by viewById<FloatingActionButton>(R.id.search_fab)
+
 
     private lateinit var binding: ActivityMainBinding
     private val loadDialog: View by lazy {
@@ -46,7 +53,7 @@ class MainActivity: BaseActivity<AppStateList, String>() {
         model.subscribe().observe(this@MainActivity, { renderData(it) })
         model.internetState.observe(this, { showInternetState(it) } )
 
-        binding.searchFab.setOnClickListener {
+        searchFAB.setOnClickListener {
             val searchDialogFragment = SearchDialogFragment.instance()
             searchDialogFragment.setOnSearchClickListener {
                 model.getData(it)
@@ -59,9 +66,9 @@ class MainActivity: BaseActivity<AppStateList, String>() {
         }
 
         val itemDecorator = DividerItemDecoration(this, DividerItemDecoration.VERTICAL)
-        binding.rvSearchResult.addItemDecoration(itemDecorator)
+        mainActivityRecyclerView.addItemDecoration(itemDecorator)
 
-        binding.rvSearchResult.adapter = adapter
+        mainActivityRecyclerView.adapter = adapter
     }
 
     override fun renderData(dataModel: AppStateList) {
