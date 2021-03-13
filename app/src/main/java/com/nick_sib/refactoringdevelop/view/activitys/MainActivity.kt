@@ -19,9 +19,11 @@ import com.nick_sib.model.ThrowableInternet
 import com.nick_sib.refactoringdevelop.R
 import com.nick_sib.core.adapter.MainAdapter
 import com.nick_sib.refactoringdevelop.databinding.ActivityMainBinding
+import com.nick_sib.refactoringdevelop.di.injectDependencies
 //import com.nick_sib.historyscreen.HistoryActivity
 import com.nick_sib.refactoringdevelop.view.fragment.SearchDialogFragment
 import com.nick_sib.utils.viewById
+import org.koin.android.scope.currentScope
 import org.koin.android.viewmodel.ext.android.viewModel
 
 private const val HISTORY_ACTIVITY_PATH = "com.nick_sib.historyscreen.HistoryActivity"
@@ -32,7 +34,8 @@ class MainActivity: BaseActivity<AppStateList, String>() {
 
     private lateinit var splitInstallManager: SplitInstallManager
 
-    override val model: MainViewModel by viewModel()
+//    override val model: MainViewModel by viewModel()
+    override lateinit var model: MainViewModel
 
     private val mainActivityRecyclerView by viewById<RecyclerView>(R.id.rv_search_result)
     private val searchFAB by viewById<FloatingActionButton>(R.id.search_fab)
@@ -50,6 +53,9 @@ class MainActivity: BaseActivity<AppStateList, String>() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        injectDependencies()
+        val viewModel: MainViewModel by currentScope.inject()
+        model = viewModel
         model.subscribe().observe(this@MainActivity, { renderData(it) })
         model.internetState.observe(this, { showInternetState(it) } )
 

@@ -15,10 +15,11 @@ class App: Application() {
     override fun onCreate() {
         super.onCreate()
         instance = this
-        startKoin {
-            androidContext(applicationContext)
-            modules(listOf(application, mainScreen, descriprionScreen/*, historyScreen*/))
-        }
+        startKoin { androidContext(this@App) }
+//        startKoin {
+//            androidContext(applicationContext)
+//            modules(listOf(application, mainScreen, descriprionScreen/*, historyScreen*/))
+//        }
     }
 
     companion object {
