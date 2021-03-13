@@ -15,16 +15,18 @@ import com.nick_sib.core.BaseActivity
 import com.nick_sib.model.AppStateList
 import com.nick_sib.model.ThrowableInternet
 import com.nick_sib.refactoringdevelop.R
-import com.nick_sib.refactoringdevelop.databinding.ActivityMainBinding
 import com.nick_sib.core.adapter.MainAdapter
+import com.nick_sib.refactoringdevelop.databinding.ActivityMainBinding
 //import com.nick_sib.historyscreen.HistoryActivity
 import com.nick_sib.refactoringdevelop.view.fragment.SearchDialogFragment
 import org.koin.android.viewmodel.ext.android.viewModel
 
+private const val HISTORY_ACTIVITY_PATH = "com.nick_sib.historyscreen.HistoryActivity"
+private const val HISTORY_ACTIVITY_FEATURE_NAME = "historyScreen"
+
 class MainActivity: BaseActivity<AppStateList, String>() {
 
-    private val HISTORY_ACTIVITY_PATH = "com.nick_sib.historyscreen.HistoryActivity"
-    private val HISTORY_ACTIVITY_FEATURE_NAME = "historyScreen"
+
     private lateinit var splitInstallManager: SplitInstallManager
 
     override val model: MainViewModel by viewModel()
@@ -123,7 +125,7 @@ class MainActivity: BaseActivity<AppStateList, String>() {
                         startActivity(intent)
                     }
                     .addOnFailureListener {
-                        Log.d("myTAG", "Couldn't download feature: " + it.message)
+                        Log.d("myLOG", "Couldn't download feature: " + it.message)
                         Toast.makeText(
                             applicationContext,
                             "Couldn't download feature: " + it.message,

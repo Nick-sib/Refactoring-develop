@@ -1,41 +1,53 @@
 plugins {
-    id 'com.android.library'
+    id 'com.android.dynamic-feature'
     id 'kotlin-android'
     id 'kotlin-kapt'
 }
 
 android {
-    kotlinOptions {
-        jvmTarget = '1.8'
+    compileSdkVersion Config.compile_sdk
+
+    defaultConfig {
+        minSdkVersion Config.min_sdk
+        targetSdkVersion Config.compile_sdk
+        versionCode Releases.version_code
+        versionName Releases.version_name
     }
 
     buildFeatures {
         viewBinding true
-        dataBinding true
     }
 }
 
 dependencies {
     //Modules
     implementation project(Modules.app)
-    implementation project(Modules.model)
+
     implementation project(Modules.core)
+    implementation project(Modules.model)
     implementation project(Modules.repository)
     implementation project(Modules.descriptionScreen)
 
     //Design
+    implementation Design.multidex
     implementation Tools.core
     implementation Design.appcompat
     implementation Design.material
 
-    //Coroutines
+
+//    Coroutines
     implementation Coroutines.coroutines_core
 
-    //Koin
+//    Koin
     implementation Koin.koin_view_model
 
     //test
     testImplementation TestImpl.junit
     androidTestImplementation TestImpl.j_test
     androidTestImplementation TestImpl.espresso
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+}
+
+repositories {
+    mavenCentral()
 }

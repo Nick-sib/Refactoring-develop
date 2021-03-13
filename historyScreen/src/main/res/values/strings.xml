@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="dialog_message_device_is_offline">You can not use app without internet connection.
+        Please, check internet connection.</string>
+</resources>

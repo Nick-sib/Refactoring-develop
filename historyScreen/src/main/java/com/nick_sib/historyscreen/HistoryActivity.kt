@@ -4,12 +4,13 @@ import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
 import androidx.recyclerview.widget.DividerItemDecoration
-import com.nick_sib.model.AppStateList
-import com.nick_sib.model.ThrowableInternet
 import com.nick_sib.core.BaseActivity
 import com.nick_sib.core.adapter.MainAdapter
 import com.nick_sib.historyscreen.databinding.ActivityHistoryBinding
+import com.nick_sib.model.AppStateList
+import com.nick_sib.model.ThrowableInternet
 import org.koin.android.viewmodel.ext.android.viewModel
+
 
 class HistoryActivity: BaseActivity<AppStateList, String>() {
 
@@ -68,11 +69,12 @@ class HistoryActivity: BaseActivity<AppStateList, String>() {
                 adapter.data = dataModel.data
             }
             is AppStateList.Error -> {
-                if (dataModel.error is ThrowableInternet)
+                if (dataModel.error is ThrowableInternet) {
                     showErrorDialog(
                         binding.root,
-                        R.string.dialog_message_device_is_offline)
-                else showErrorDialog(binding.root, dataModel.error.message, null)
+                        R.string.dialog_message_device_is_offline
+                    )
+                } else showErrorDialog(binding.root, dataModel.error.message, null)
             }
             is AppStateList.Loading -> {
                 hideErrorDialog()

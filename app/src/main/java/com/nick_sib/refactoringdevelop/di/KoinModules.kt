@@ -3,7 +3,6 @@ package com.nick_sib.refactoringdevelop.di
 import androidx.room.Room
 import com.nick_sib.model.AppStateList
 import com.nick_sib.model.DataModel
-//import com.nick_sib.historyscreen.HistoryViewModel
 import com.nick_sib.core.MainInteractor
 import com.nick_sib.refactoringdevelop.view.activitys.MainViewModel
 import com.nick_sib.repository.datasource.RoomDataBaseDescriptionImpl
@@ -39,7 +38,3 @@ val mainScreen = module {
 val descriprionScreen = module {
     factory { com.nick_sib.descriptionscreen.DescriptionViewModel(get()) }
 }
-
-//val historyScreen = module {
-//    factory { HistoryViewModel(get(named(NAME_LOCAL))) }
-//}

@@ -4,7 +4,6 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.snackbar.Snackbar
 
-
 abstract class BaseActivity<T, S> : AppCompatActivity() {
 
     abstract val model: BaseViewModel<T, S>
