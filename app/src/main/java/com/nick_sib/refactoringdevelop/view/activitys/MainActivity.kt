@@ -8,6 +8,8 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.play.core.splitinstall.SplitInstallManager
 import com.google.android.play.core.splitinstall.SplitInstallManagerFactory
 import com.google.android.play.core.splitinstall.SplitInstallRequest
@@ -17,19 +19,25 @@ import com.nick_sib.model.ThrowableInternet
 import com.nick_sib.refactoringdevelop.R
 import com.nick_sib.core.adapter.MainAdapter
 import com.nick_sib.refactoringdevelop.databinding.ActivityMainBinding
-//import com.nick_sib.historyscreen.HistoryActivity
+import com.nick_sib.refactoringdevelop.di.injectDependencies
 import com.nick_sib.refactoringdevelop.view.fragment.SearchDialogFragment
-import org.koin.android.viewmodel.ext.android.viewModel
+import com.nick_sib.utils.viewById
+import org.koin.android.scope.currentScope
 
 private const val HISTORY_ACTIVITY_PATH = "com.nick_sib.historyscreen.HistoryActivity"
 private const val HISTORY_ACTIVITY_FEATURE_NAME = "historyScreen"
 
 class MainActivity: BaseActivity<AppStateList, String>() {
 
-
     private lateinit var splitInstallManager: SplitInstallManager
 
-    override val model: MainViewModel by viewModel()
+    override lateinit var model: MainViewModel
+
+    private val mainActivityRecyclerView by viewById<RecyclerView>(R.id.rv_search_result)
+    private val searchFAB by viewById<FloatingActionButton>(R.id.search_fab)
+    private var themeMenu: MenuItem? = null//>(R.id.menu_day_night)
+//            getDrawable(if (isDark) R.drawable.ic_day else R.drawable.ic_night)
+//    private var isDark: Boolean by PreferenceDelegate(App.instance.sharedPrefs, PREFS_KEY_THEME, false)
 
     private lateinit var binding: ActivityMainBinding
     private val loadDialog: View by lazy {
@@ -43,10 +51,13 @@ class MainActivity: BaseActivity<AppStateList, String>() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        injectDependencies()
+        val viewModel: MainViewModel by currentScope.inject()
+        model = viewModel
         model.subscribe().observe(this@MainActivity, { renderData(it) })
         model.internetState.observe(this, { showInternetState(it) } )
 
-        binding.searchFab.setOnClickListener {
+        searchFAB.setOnClickListener {
             val searchDialogFragment = SearchDialogFragment.instance()
             searchDialogFragment.setOnSearchClickListener {
                 model.getData(it)
@@ -59,9 +70,9 @@ class MainActivity: BaseActivity<AppStateList, String>() {
         }
 
         val itemDecorator = DividerItemDecoration(this, DividerItemDecoration.VERTICAL)
-        binding.rvSearchResult.addItemDecoration(itemDecorator)
+        mainActivityRecyclerView.addItemDecoration(itemDecorator)
 
-        binding.rvSearchResult.adapter = adapter
+        mainActivityRecyclerView.adapter = adapter
     }
 
     override fun renderData(dataModel: AppStateList) {
@@ -105,11 +116,19 @@ class MainActivity: BaseActivity<AppStateList, String>() {
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.history_menu, menu)
+        themeMenu = menu?.findItem(R.id.menu_day_night)
+        model.themeState.observe(this, {
+            themeMenu?.icon = getDrawable(if (it) R.drawable.ic_day else R.drawable.ic_night)
+        })
         return super.onCreateOptionsMenu(menu)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
+            R.id.menu_day_night -> {
+                model.switchTheme()
+                true
+            }
             R.id.menu_history -> {
                 splitInstallManager = SplitInstallManagerFactory.create(applicationContext)
                 val request =
@@ -134,10 +153,6 @@ class MainActivity: BaseActivity<AppStateList, String>() {
                     }
                 true
             }
-//            R.id.menu_history -> {
-//                startActivity(Intent(this, HistoryActivity::class.java))
-//                true
-//            }
             else -> super.onOptionsItemSelected(item)
         }
     }

@@ -36,7 +36,7 @@ object Versions {
     const val constraint = "2.0.4"
 
     //Kotlin
-    const val stdlib = "1.4.30"//ok
+    const val stdlib = "1.4.31"//ok
 
     //Coroutines
     const val coroutines = "1.4.1"//ok

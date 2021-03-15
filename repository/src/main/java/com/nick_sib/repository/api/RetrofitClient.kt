@@ -25,3 +25,4 @@ fun createRetrofit(interceptor: Interceptor): Retrofit =
         .addCallAdapterFactory(CoroutineCallAdapterFactory())
         .client(createOkHttpClient(interceptor))
         .build()
+

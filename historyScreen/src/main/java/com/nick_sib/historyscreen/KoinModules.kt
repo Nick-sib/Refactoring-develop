@@ -1,6 +1,6 @@
 package com.nick_sib.historyscreen
 
-import com.nick_sib.refactoringdevelop.di.NAME_LOCAL
+import com.nick_sib.core.di.NAME_LOCAL
 import org.koin.core.context.loadKoinModules
 import org.koin.core.qualifier.named
 import org.koin.dsl.module

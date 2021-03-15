@@ -4,12 +4,26 @@ plugins {
 }
 
 dependencies {
+    implementation Design.appcompat
     implementation Kotlin.stdlib
-    implementation Coroutines.coroutines_core
+
+    //Kotlin
+    implementation Tools.core
     implementation Coroutines.coroutines_android
 
     //Test
     testImplementation TestImpl.junit
-    androidTestImplementation TestImpl.j_test
+//    androidTestImplementation TestImpl.runner
     androidTestImplementation TestImpl.espresso
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+
+//    implementation Kotlin.stdlib
+//    implementation Coroutines.coroutines_core
+//    implementation Coroutines.coroutines_android
+//
+//    //Test
+//    testImplementation TestImpl.junit
+//    androidTestImplementation TestImpl.j_test
+//    androidTestImplementation TestImpl.espresso
 }

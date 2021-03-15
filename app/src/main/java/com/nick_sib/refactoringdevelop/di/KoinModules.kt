@@ -1,9 +1,16 @@
 package com.nick_sib.refactoringdevelop.di
 
+
+import android.content.Context
+import android.content.SharedPreferences
 import androidx.room.Room
 import com.nick_sib.model.AppStateList
 import com.nick_sib.model.DataModel
 import com.nick_sib.core.MainInteractor
+import com.nick_sib.core.di.NAME_LOCAL
+import com.nick_sib.core.di.NAME_REMOTE
+import com.nick_sib.descriptionscreen.DescriptionViewModel
+import com.nick_sib.refactoringdevelop.view.activitys.MainActivity
 import com.nick_sib.refactoringdevelop.view.activitys.MainViewModel
 import com.nick_sib.repository.datasource.RoomDataBaseDescriptionImpl
 import com.nick_sib.repository.datasource.RoomDataBaseImpl
@@ -14,8 +21,16 @@ import com.nick_sib.repository.room.DataBase
 import com.nick_sib.repository.api.ApiService
 import com.nick_sib.repository.api.BaseInterceptor
 import com.nick_sib.repository.api.createRetrofit
+import org.koin.android.viewmodel.dsl.viewModel
+import org.koin.core.context.loadKoinModules
 import org.koin.core.qualifier.named
 import org.koin.dsl.module
+
+fun injectDependencies() = loadModules
+
+private val loadModules by lazy {
+    loadKoinModules(listOf(application, mainScreen, descriprionScreen))
+}
 
 val application = module {
     single { Room.databaseBuilder(get(), DataBase::class.java, "HistoryDB").build() }
@@ -31,10 +46,20 @@ val application = module {
 }
 
 val mainScreen = module {
-    factory { MainInteractor<AppStateList, String>(get(named(NAME_REMOTE)), get(named(NAME_LOCAL))) }
-    factory { MainViewModel(get()) }
+    scope(named<MainActivity>()) {
+        scoped { MainInteractor<AppStateList, String>(get(named(NAME_REMOTE)), get(named(NAME_LOCAL))) }
+        factory {
+            fun sharedPrefs(context: Context): SharedPreferences = context.getSharedPreferences(
+                (MainActivity::class).qualifiedName,
+                Context.MODE_PRIVATE
+            )
+
+            sharedPrefs(get())
+        }
+        viewModel { MainViewModel(get(),get()) }
+    }
 }
 
 val descriprionScreen = module {
-    factory { com.nick_sib.descriptionscreen.DescriptionViewModel(get()) }
+    factory { DescriptionViewModel(get()) }
 }
