@@ -60,6 +60,9 @@ object Versions {
     const val jTest  = "1.1.2"//ok
     const val runner = "1.2.0"
     const val espressoCore = "3.3.0"//ok
+
+    //Google Play
+    const val googlePlayCore = "1.6.3"
 }
 
 object Tools {
@@ -103,6 +106,10 @@ object Glide {
 object Room {
     const val runtime = "androidx.room:room-runtime:${Versions.room}"
     const val compiler = "androidx.room:room-compiler:${Versions.room}"
+}
+
+object GooglePlay {
+    const val googlePlayCore = "com.google.android.play:core:${Versions.googlePlayCore}"
 }
 
 object TestImpl {

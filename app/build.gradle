@@ -5,13 +5,13 @@ plugins {
 }
 
 android {
-    buildToolsVersion Config.compile_version
-
+    compileSdkVersion Config.compile_sdk
     defaultConfig {
         applicationId Config.application_id
+        minSdkVersion Config.min_sdk
+        targetSdkVersion Config.compile_sdk
         versionCode Releases.version_code
         versionName Releases.version_name
-
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -22,17 +22,18 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility Config.java_version
+        targetCompatibility Config.java_version
     }
-    kotlinOptions {
-        jvmTarget = '1.8'
-    }
+//    kotlinOptions {
+//        jvmTarget = '1.8'
+//    }
 
     buildFeatures {
         viewBinding true
         dataBinding true
     }
+    dynamicFeatures = [":historyScreen"]//Modules.historyScreen]
 }
 
 dependencies {
@@ -42,7 +43,7 @@ dependencies {
     implementation project(Modules.repository)
     implementation project(Modules.core)
     implementation project(Modules.descriptionScreen)
-    implementation project(Modules.historyScreen)
+//    implementation project(Modules.historyScreen)
 
 
     //Design
@@ -71,10 +72,14 @@ dependencies {
     //Room
     implementation Room.runtime
 
+
+    //Google Play libraries
+    implementation GooglePlay.googlePlayCore
+
     //test
     testImplementation TestImpl.junit
     androidTestImplementation TestImpl.j_test
     androidTestImplementation TestImpl.espresso
 
-//    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
 }

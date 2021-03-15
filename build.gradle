@@ -1,5 +1,4 @@
 buildscript {
-
     repositories {
         google()
         jcenter()
@@ -25,7 +24,7 @@ subprojects {
 
                 defaultConfig {
                     minSdkVersion Config.min_sdk
-                    targetSdkVersion Config.compile_sdk//Config.target_sdk
+                    targetSdkVersion Config.compile_sdk
                 }
 
                 compileOptions {

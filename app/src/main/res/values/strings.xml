@@ -6,14 +6,13 @@
     <string name="fab_description">Search button</string>
 
 
-
     <string name="dialog_button_cancel">Cancel</string>
     <string name="dialog_title_stub">Undefined error</string>
 
     <string name="dialog_title_device_is_offline">No internet connection</string>
 
 
-
-
     <string name="menu_title_history">History</string>
+    <string name="title_historyscreenfeature">History Screen Feature</string>
+
 </resources>
