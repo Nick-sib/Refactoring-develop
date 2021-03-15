@@ -1,0 +1,15 @@
+plugins {
+    id 'com.android.library'
+    id 'kotlin-android'
+}
+
+dependencies {
+    implementation Kotlin.stdlib
+    implementation Coroutines.coroutines_core
+    implementation Coroutines.coroutines_android
+
+    //Test
+    testImplementation TestImpl.junit
+    androidTestImplementation TestImpl.j_test
+    androidTestImplementation TestImpl.espresso
+}

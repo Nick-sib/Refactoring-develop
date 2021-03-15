@@ -22,6 +22,7 @@
         android:src="@drawable/ic_search"
         android:layout_margin="@dimen/margin_medium"
         android:layout_gravity="end|bottom"
+
         android:contentDescription="@string/fab_description" />
 
     <include

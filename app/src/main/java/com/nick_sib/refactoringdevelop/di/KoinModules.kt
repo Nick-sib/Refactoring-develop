@@ -1,15 +1,20 @@
 package com.nick_sib.refactoringdevelop.di
 
 import androidx.room.Room
-import com.nick_sib.refactoringdevelop.model.data.AppStateList
-import com.nick_sib.refactoringdevelop.model.data.DataModel
-import com.nick_sib.refactoringdevelop.model.datasource.RoomDataBaseImpl
-import com.nick_sib.refactoringdevelop.model.datasource.provider.RetrofitImpl
-import com.nick_sib.refactoringdevelop.model.repository.IRepository
-import com.nick_sib.refactoringdevelop.model.repository.RepositoryImpl
-import com.nick_sib.refactoringdevelop.model.room.DataBase
-import com.nick_sib.refactoringdevelop.view.main.MainInteractor
-import com.nick_sib.refactoringdevelop.view.main.MainViewModel
+import com.nick_sib.model.AppStateList
+import com.nick_sib.model.DataModel
+import com.nick_sib.historyscreen.HistoryViewModel
+import com.nick_sib.core.MainInteractor
+import com.nick_sib.refactoringdevelop.view.activitys.MainViewModel
+import com.nick_sib.repository.datasource.RoomDataBaseDescriptionImpl
+import com.nick_sib.repository.datasource.RoomDataBaseImpl
+import com.nick_sib.repository.api.RetrofitImpl
+import com.nick_sib.repository.repository.IRepository
+import com.nick_sib.repository.repository.RepositoryImpl
+import com.nick_sib.repository.room.DataBase
+import com.nick_sib.repository.api.ApiService
+import com.nick_sib.repository.api.BaseInterceptor
+import com.nick_sib.repository.api.createRetrofit
 import org.koin.core.qualifier.named
 import org.koin.dsl.module
 
@@ -18,8 +23,12 @@ val application = module {
     single { get<DataBase>().dataModelDao }
     single { get<DataBase>().meaningsDao }
 
-    single<IRepository<List<DataModel>, String>>(named(NAME_REMOTE)) { RepositoryImpl(RetrofitImpl()) }
+    single<IRepository<List<DataModel>, String>>(named(NAME_REMOTE)) { RepositoryImpl(RetrofitImpl(get())) }
     single<IRepository<List<DataModel>, String>>(named(NAME_LOCAL))  { RepositoryImpl(RoomDataBaseImpl(get())) }
+
+    single<IRepository<DataModel, Long>> { RepositoryImpl(RoomDataBaseDescriptionImpl(get())) }
+
+    factory { createRetrofit(BaseInterceptor).create(ApiService::class.java) }
 }
 
 val mainScreen = module {
@@ -27,7 +36,10 @@ val mainScreen = module {
     factory { MainViewModel(get()) }
 }
 
-//val favorityScreen = module {
-//    factory { FavorityViewModel(get()) }
-//    factory { FavorityInteractor(get(), get()) }
-//}
+val descriprionScreen = module {
+    factory { com.nick_sib.descriptionscreen.DescriptionViewModel(get()) }
+}
+
+val historyScreen = module {
+    factory { com.nick_sib.historyscreen.HistoryViewModel(get(named(NAME_LOCAL))) }
+}
