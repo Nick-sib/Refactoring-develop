@@ -5,11 +5,11 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
+import com.nick_sib.core.BaseActivity
+import com.nick_sib.descriptionscreen.databinding.ActivityDescriptionBinding
 import com.nick_sib.model.AppStateData
 import com.nick_sib.model.DataModel
 import com.nick_sib.model.ThrowableInternet
-import com.nick_sib.core.BaseActivity
-import com.nick_sib.descriptionscreen.databinding.ActivityDescriptionBinding
 import org.koin.android.viewmodel.ext.android.viewModel
 
 

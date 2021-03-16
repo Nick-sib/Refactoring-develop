@@ -4,4 +4,5 @@
         Please, check internet connection.</string>
     <string name="def_image_description">image as is</string>
     <string name="empty_search_result">Sorry, seems nothing has been found</string>
+    <string name="err_internet_button">GOT IT</string>
 </resources>

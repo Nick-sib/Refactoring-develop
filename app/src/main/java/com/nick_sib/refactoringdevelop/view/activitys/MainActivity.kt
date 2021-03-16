@@ -7,6 +7,7 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -15,9 +16,10 @@ import com.google.android.play.core.splitinstall.SplitInstallManagerFactory
 import com.google.android.play.core.splitinstall.SplitInstallRequest
 import com.nick_sib.core.BaseActivity
 import com.nick_sib.model.AppStateList
-import com.nick_sib.model.ThrowableInternet
 import com.nick_sib.refactoringdevelop.R
 import com.nick_sib.core.adapter.MainAdapter
+import com.nick_sib.descriptionscreen.DescriptionActivity
+import com.nick_sib.model.ThrowableInternet
 import com.nick_sib.refactoringdevelop.databinding.ActivityMainBinding
 import com.nick_sib.refactoringdevelop.di.injectDependencies
 import com.nick_sib.refactoringdevelop.view.fragment.SearchDialogFragment
@@ -35,9 +37,7 @@ class MainActivity: BaseActivity<AppStateList, String>() {
 
     private val mainActivityRecyclerView by viewById<RecyclerView>(R.id.rv_search_result)
     private val searchFAB by viewById<FloatingActionButton>(R.id.search_fab)
-    private var themeMenu: MenuItem? = null//>(R.id.menu_day_night)
-//            getDrawable(if (isDark) R.drawable.ic_day else R.drawable.ic_night)
-//    private var isDark: Boolean by PreferenceDelegate(App.instance.sharedPrefs, PREFS_KEY_THEME, false)
+    private var themeMenu: MenuItem? = null
 
     private lateinit var binding: ActivityMainBinding
     private val loadDialog: View by lazy {
@@ -66,7 +66,7 @@ class MainActivity: BaseActivity<AppStateList, String>() {
         }
 
         adapter = MainAdapter { data ->
-            startActivity(com.nick_sib.descriptionscreen.DescriptionActivity.getIntent(this@MainActivity, data))
+            startActivity(DescriptionActivity.getIntent(this@MainActivity, data))
         }
 
         val itemDecorator = DividerItemDecoration(this, DividerItemDecoration.VERTICAL)
@@ -83,11 +83,12 @@ class MainActivity: BaseActivity<AppStateList, String>() {
                 adapter.data = dataModel.data
             }
             is AppStateList.Error -> {
-                if (dataModel.error is ThrowableInternet)
-                    showErrorDialog(
-                        binding.root,
-                        R.string.dialog_message_device_is_offline)
-                else showErrorDialog(binding.root, dataModel.error.message, null)
+                showErrorDialog(binding.root, dataModel.error)
+//                if (dataModel.error is ThrowableInternet)
+//                    showErrorDialog(
+//                        binding.root,
+//                        R.string.dialog_message_device_is_offline)
+//                else showErrorDialog(binding.root, dataModel.error.message, null)
             }
             is AppStateList.Loading -> {
                 hideErrorDialog()
@@ -98,10 +99,11 @@ class MainActivity: BaseActivity<AppStateList, String>() {
 
     private fun showInternetState(state: Boolean){
         if (state) hideErrorDialog() else
-            showErrorDialog(
-                binding.root,
-                R.string.dialog_message_device_is_offline
-            )
+            showErrorDialog(binding.root, ThrowableInternet())
+//            showErrorDialog(
+//                binding.root,
+//                R.string.dialog_message_device_is_offline
+//            )
     }
 
     override fun hideLoadingDialog(){
@@ -118,7 +120,9 @@ class MainActivity: BaseActivity<AppStateList, String>() {
         menuInflater.inflate(R.menu.history_menu, menu)
         themeMenu = menu?.findItem(R.id.menu_day_night)
         model.themeState.observe(this, {
-            themeMenu?.icon = getDrawable(if (it) R.drawable.ic_day else R.drawable.ic_night)
+            themeMenu?.icon = ContextCompat.getDrawable(
+                this, if (it) R.drawable.ic_day else R.drawable.ic_night
+            )
         })
         return super.onCreateOptionsMenu(menu)
     }

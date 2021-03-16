@@ -30,7 +30,7 @@ android {
         viewBinding true
         dataBinding true
     }
-    dynamicFeatures = [":historyScreen"]//Modules.historyScreen]
+    dynamicFeatures = [":historyscreen"]//Modules.historyScreen]
 }
 
 dependencies {
@@ -39,9 +39,8 @@ dependencies {
     implementation project(Modules.model)
     implementation project(Modules.repository)
     implementation project(Modules.core)
-    implementation project(Modules.descriptionScreen)
-//    implementation project(Modules.historyScreen)
-
+//    implementation project(Modules.descriptionScreen)
+    implementation project(path: ':descriptionScreen')
 
     //Design
     implementation Tools.core
