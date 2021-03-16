@@ -84,11 +84,6 @@ class MainActivity: BaseActivity<AppStateList, String>() {
             }
             is AppStateList.Error -> {
                 showErrorDialog(binding.root, dataModel.error)
-//                if (dataModel.error is ThrowableInternet)
-//                    showErrorDialog(
-//                        binding.root,
-//                        R.string.dialog_message_device_is_offline)
-//                else showErrorDialog(binding.root, dataModel.error.message, null)
             }
             is AppStateList.Loading -> {
                 hideErrorDialog()
@@ -100,10 +95,6 @@ class MainActivity: BaseActivity<AppStateList, String>() {
     private fun showInternetState(state: Boolean){
         if (state) hideErrorDialog() else
             showErrorDialog(binding.root, ThrowableInternet())
-//            showErrorDialog(
-//                binding.root,
-//                R.string.dialog_message_device_is_offline
-//            )
     }
 
     override fun hideLoadingDialog(){
